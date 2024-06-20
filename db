@@ -1,0 +1,109 @@
+$table->foreid ('persona_id')->unique (valor unico) uno a uno - contrained (n tabla)
+-> on delete (cascade es eliminar una persona y todos sus registros, set null no)
+
+cuando es de uno a muchos no va unique
+$table->foreignId('apoderado_id')->nullable()->constrained()->onDelete('set null');
+
+tabla: usuarios
+id 
+user varchar 50
+contraseña varchar 50
+estado boleano - tyniinteger 1
+
+tabla: roles
+rol_id
+name_rol
+estado
+
+tabla: empleados
+id 
+usuario_id
+rol_id
+nombres varchar 50
+apellidos varchar 50
+dni varchar 10
+email varchar 50
+telefono varchar 15
+fecha_ingreso date
+estado boleano - tyniinteger 1
+
+tabla: academia_ventas
+id
+asesor_id
+estudiante_id
+apoderado_id
+ciclo_id
+comprobante_id
+fecha_inscripcion date
+monto_inicial decimal
+estado boleano - tyniinteger 1
+
+tabla:academia_ciclos
+id
+nombre_ciclo varchar 80
+fecha_inicio date
+costo decimal
+estado boleano - tyniinteger 1
+
+tabla: estudiantes
+id
+apoderado_id
+nombres 80
+apellidos 80
+dni varchar 10
+telefono  varchar 15
+sede varchar 20
+estado boleano - tyniinteger 1
+
+tabla:apoderados
+id
+nombres varchar 50
+apellidos varchar 50
+parentesco varchar 30
+telefono varchar 15
+estado boleano - tyniinteger 1
+
+tabla: cacecobventas
+id
+asesor_id
+clientecacecob_id
+evento_id
+comprobante_id
+fecha_inscripcion date
+monto_inicial decimal
+estado boleano - tyniinteger 1
+
+tabla: cacecobeventos
+id
+nombre_evento varchar 250
+fecha_programada date
+costo decimal
+estado boleano - tyniinteger 1
+
+
+tabla: cacecob_clientes
+id
+nombres varchar 50
+apellidos varchar 50
+dni varchar 10
+telefono varchar 15
+enail varchar 30
+direccion varchar 200
+estado boleano - tyniinteger 1
+
+tabla: comprobantes
+id
+codigo_operacion varchar 30
+tipo_pago varchar 20
+fecha_pago date
+monto_total decimal
+estado
+
+crear migraciones: php artisan make:model (---singulat) -m // php artisan migrate
+controladores: php artisan make:controller academia_cicloController --resource
+php route:list
+php artisan make:request storeCiclosrequest
+php artisan make:request UpdateCiclosRequest
+
+
+
