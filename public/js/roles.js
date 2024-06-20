@@ -89,34 +89,5 @@ $(document).ready(function() {
         });
     });
 
-    $(document).ready(function() {
-        $('#buscar').click(function() {
-            var dni = $('#dni').val();
-    
-            $.ajax({
-                url: '/buscar-por-dni',
-                method: 'POST',
-                data: {
-                    _token: $('meta[name="csrf-token"]').attr('content'),
-                    dni: dni
-                },
-                success: function(response) {
-                    console.log(response); // Para depuración
-                    if (response.success) {
-                        $('#datos_estudiante').val(response.data.datos_estudiante.nombres + ' ' + response.data.datos_estudiante.apellidos);
-                        $('#datos_apoderado').val(response.data.datos_apoderado.nombres + ' ' + response.data.datos_apoderado.apellidos);
-                        $('#contacto_apoderado').val(response.data.contacto_apoderado);
-                        $('#ciclo_contratado').val(response.data.ciclo_contratado);
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });
-        });
-    });
-    
-    
+ 
 });

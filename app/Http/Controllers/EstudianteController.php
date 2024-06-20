@@ -6,6 +6,8 @@ use App\Http\Requests\storeEstudiantesRequest;
 use App\Models\Academia_ciclo;
 use App\Models\Academia_venta;
 use App\Models\Apoderado;
+use App\Models\Comprobante;
+use App\Models\Empleado;
 use App\Models\Estudiante;
 use Exception;
 use Illuminate\Http\Request;
@@ -40,12 +42,22 @@ class EstudianteController extends Controller
             if ($academiaVenta) {
                 $apoderado = Apoderado::find($academiaVenta->apoderado_id);
                 $ciclo = Academia_ciclo::find($academiaVenta->ciclo_id);
+                $comprobante = Comprobante::find($academiaVenta->comprobante_id);
+                $empleado = Empleado::find($academiaVenta->empleado_id);
+            
 
                 return view('pagos_impulsa.pagos-impulsa', [
                     'datos_estudiante' => $estudiante,
                     'datos_apoderado' => $apoderado,
                     'contacto_apoderado' => $apoderado->telefono,
                     'ciclo_contratado' => $ciclo->nombre_ciclo,
+                    'costo_ciclo'=>$ciclo->costo,
+                    'numero_operacion'=>$comprobante->codigo_operacion,
+                    'tipo_pago'=>$comprobante->tipo_pago_texto,
+                    'fecha_pago'=>$comprobante->fecha_pago,
+                    'asesor'=>$empleado->usuario->user,
+                    'monto'=>$comprobante->monto,
+                    
                 ]);
             } else {
                 return view('buscar_estudiante', [
@@ -53,7 +65,7 @@ class EstudianteController extends Controller
                 ]);
             }
         } else {
-            return view('buscar_estudiante', [
+            return view('pagos_impulsa.pagos-impulsa', [
                 'message' => 'Estudiante no encontrado'
             ]);
         }

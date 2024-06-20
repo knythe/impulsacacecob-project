@@ -14,58 +14,71 @@
 
 <body id="page-top">
     <div id="wrapper">
-        <x-navigation-menu></x-navigation-menu>
+        <x-navigation-menu-asesor-impulsa></x-navigation-menu-asesor-impulsa>
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <x-navigation-header></x-navigation-header>
                 <div class="container-fluid">
                     <h1 class="h3 mb-2 text-gray-800">Registros de ventas - Academia Impulsa</h1>
                     <hr>
+                    <!-- Busqueda de estudiante por documento de identidad -->
                     <div class="form-section">
                         <h6 class="m-0 font-weight-bold text-primary">BUSCAR ESTUDIANTE</h6>
                         <hr>
                         <div class="container">
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <form action="{{ route('buscarPorDNI') }}" method="POST">
-                                        @csrf
-                                        <div class="form-group row">
-                                            <div class="form-group col-sm-4 mb-3 mb-sm-0">
-                                                <label for="dni">Documento de identidad del estudiante:</label>
-                                            </div>
-                                            <div class="form-group col-sm-8">
-                                                <input type="text" class="form-control text-center" id="dni" name="dni" placeholder="Ingrese documento de identidad">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="form-group col-sm-12">
-                                                <label for="datos_estudiante">Datos del estudiante:</label>
-                                                <input type="text" class="form-control text-center" id="datos_estudiante" name="datos_estudiante" value="{{ $datos_estudiante->nombres ?? '' }} {{ $datos_estudiante->apellidos ?? '' }}" placeholder="" readonly>
-                                            </div>
-                                            <div class="form-group col-sm-12">
-                                                <label for="datos_apoderado">Datos del apoderado:</label>
-                                                <input type="text" class="form-control text-center" id="datos_apoderado" name="datos_apoderado" value="{{ $datos_apoderado->nombres ?? '' }} {{ $datos_apoderado->apellidos ?? '' }}" placeholder="" readonly>
-                                            </div>
-                                            <div class="form-group col-sm-6">
-                                                <label for="contacto_apoderado">Contacto del apoderado:</label>
-                                                <input type="text" class="form-control text-center" id="contacto_apoderado" name="contacto_apoderado" value="{{ $contacto_apoderado ?? '' }}" placeholder="" readonly>
-                                            </div>
-                                            <div class="form-group col-sm-6">
-                                                <label for="ciclo_contratado">Ciclo contratado:</label>
-                                                <input type="text" class="form-control text-center" id="ciclo_contratado" name="ciclo_contratado" value="{{ $ciclo_contratado ?? '' }}" placeholder="" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <!-- Imputs -->
+                                        <form action="{{ route('buscarPorDNI') }}" method="POST" class="w-100">
                                             <div class="col-sm-12">
-                                                <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos" title="Buscar" style="display: block; width: 100%; margin-bottom: 10px;">BUSCAR</button>
+                                                @csrf
+                                                <hr>
+                                                <div class="form-group row">
+                                                    <div class="form-group col-sm-4 mb-3 mb-sm-0">
+                                                        <label for="dni">Documento de identidad del estudiante:</label>
+                                                    </div>
+                                                    <div class="form-group col-sm-8">
+                                                        <input type="text" class="form-control text-center" id="dni" name="dni" placeholder="Ingrese documento de identidad">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="form-group col-sm-12">
+                                                        <label for="datos_estudiante">Datos del estudiante:</label>
+                                                        <input type="text" class="form-control text-center" id="datos_estudiante" name="datos_estudiante" value="{{ $datos_estudiante->nombres ?? '' }} {{ $datos_estudiante->apellidos ?? '' }}" placeholder="" readonly>
+                                                    </div>
+                                                    <div class="form-group col-sm-12">
+                                                        <label for="datos_apoderado">Datos del apoderado:</label>
+                                                        <input type="text" class="form-control text-center" id="datos_apoderado" name="datos_apoderado" value="{{ $datos_apoderado->nombres ?? '' }} {{ $datos_apoderado->apellidos ?? '' }}" placeholder="" readonly>
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="contacto_apoderado">Contacto del apoderado:</label>
+                                                        <input type="text" class="form-control text-center" id="contacto_apoderado" name="contacto_apoderado" value="{{ $contacto_apoderado ?? '' }}" placeholder="" readonly>
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="ciclo_contratado">Ciclo contratado:</label>
+                                                        <input type="text" class="form-control text-center" id="ciclo_contratado" name="ciclo_contratado" value="{{ $ciclo_contratado ?? '' }}" placeholder="" readonly>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                            <div class="form-group row">
+                                                <div class="form-group col-sm-6">
+                                                    <button type="submit" class="btn btn-primary-impulsa btn-ciclos btn-block">Buscar</button>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <button type="submit" class="btn btn-primary-pagos btn-ciclos btn-block">Registrar Pago</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
+                        <hr>
                         @if (isset($message))
-                            <div class="alert alert-info">{{ $message }}</div>
+                        <div class="alert alert-info">{{ $message }}</div>
                         @endif
                     </div>
                     <hr>
@@ -91,13 +104,13 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>{{$asesor}}</td>
+                                            <td>{{$datos_estudiante->nombres ?? '' }} {{ $datos_estudiante->apellidos ?? '' }}</td>
+                                            <td>{{$fecha_pago}}</td>
+                                            <td>{{$monto}}</td>
+                                            <td>{{$numero_operacion}}</td>
+                                            <td>{{$tipo_pago}}</td>
+                                            <td>{{$costo_ciclo}}</td>
                                             <td></td>
                                             <td></td>
                                         </tr>
@@ -132,4 +145,5 @@
         </div>
     </div>
 </body>
+
 </html>

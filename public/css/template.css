@@ -2377,6 +2377,12 @@
     background-color: #9F1423;
     border-color: #9F1423;
   }
+
+  .btn-primary-pagos {
+    color: #000000;
+    background-color: #00eaff;
+    border-color: #00eaff;
+  }
  
   .icon-separator {
     margin-left: 7px;

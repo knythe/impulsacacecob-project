@@ -27,6 +27,7 @@ telefono varchar 15
 fecha_ingreso date
 estado boleano - tyniinteger 1
 
+
 tabla: academia_ventas
 id
 asesor_id
@@ -37,6 +38,7 @@ comprobante_id
 fecha_inscripcion date
 monto_inicial decimal
 estado boleano - tyniinteger 1
+
 
 tabla:academia_ciclos
 id
@@ -116,5 +118,4 @@ git config --global user.name "Knythe"
 git commit -m "version registro y vista de ventas impulsa" // guardar la version en GIT
 git status // VER QUE ARCHIVOS FALTAN CRACKEAR O CUALES YA ESTAN CRACKEADOS
 git push // ENVIAR LOS CAMBIOS AL REPOSITORIU EN GITHUB
-
 
