@@ -63,12 +63,16 @@ Route::resource('/impulsa/apoderados',ApoderadoController::class);
 Route::resource('estudiantes',EstudianteController::class);
 Route::resource('comprobantes',ComprobanteController::class);
 Route::get('/impulsa/ventas', [Academia_ventaController::class, 'asesorSales'])->name('/impulsa/ventas');
-
+Route::get('/buscar-estudiante', [EstudianteController::class, 'mostrarFormulario'])->name('buscarFormulario');
+Route::post('/buscar-estudiante', [EstudianteController::class, 'buscarPorDNI'])->name('buscarPorDNI');
 
 
 
 Route::get('/login', function () {
     return view('auth.login');
+});
+Route::get('/impulsa/pagos', function () {
+    return view('pagos_impulsa.pagos-impulsa');
 });
 Route::get('/registros', function () {
     return view('registros.registros-impulsa');

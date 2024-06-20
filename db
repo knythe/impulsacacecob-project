@@ -106,4 +106,15 @@ php artisan make:request storeCiclosrequest
 php artisan make:request UpdateCiclosRequest
 
 
+Comandos terminal GITHUB
+git init // Iniciar GIT
+git remote add origin https://github.com/knythe/impulsacacecob-project.git // enlace se ve en hitgub, es para enlazar tu proyecto con
+el repositorio github
+git add . // añade todos los cambios a git
+git config --global user.email "krondoyv@ucvvirtual.edu.pe"
+git config --global user.name "Knythe"
+git commit -m "version registro y vista de ventas impulsa" // guardar la version en GIT
+git status // VER QUE ARCHIVOS FALTAN CRACKEAR O CUALES YA ESTAN CRACKEADOS
+git push // ENVIAR LOS CAMBIOS AL REPOSITORIU EN GITHUB
+
 

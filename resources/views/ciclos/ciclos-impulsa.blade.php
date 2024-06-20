@@ -161,7 +161,8 @@
                                                         {{$ciclo->nombre_ciclo}}
                                                     </td>
                                                     <td>
-                                                        {{$ciclo->fecha_inicio}}
+                                                        
+                                                        {{\Carbon\Carbon::parse($ciclo->fecha_inicio)->format('d-m-Y')}}
                                                     </td>
                                                     <td>
                                                         {{$ciclo->costo}}
