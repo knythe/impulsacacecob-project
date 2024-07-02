@@ -28,9 +28,14 @@ class UpdateEventosRequest extends FormRequest
         $eventoid = $evento->id;  // Aquí obtienes el ID del modelo
 
         return [
+            'tipo_evento' =>'required|max:80',
             'nombre_evento' => 'required|max:250|unique:cacecob_eventos,nombre_evento,' . $eventoid,
-            'fecha_programada' => 'required|date',
+            'fecha_programada'=>'required|date',
+            'fecha_finalizacion'=>'required|date',
+            'cant_horas_academicas'=>'required|max:3',
+            'modalidad'=>'required:max:50',
             'costo' => 'required|numeric|min:0',
+            'fecha_registro'=>'nullable',
             'estado' => 'nullable'
         ];
     }

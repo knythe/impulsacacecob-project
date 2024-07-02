@@ -112,6 +112,7 @@ Comandos terminal GITHUB
 git init // Iniciar GIT
 git remote add origin https://github.com/knythe/impulsacacecob-project.git // enlace se ve en hitgub, es para enlazar tu proyecto con
 el repositorio github
+
 git add . // añade todos los cambios a git
 git config --global user.email "krondoyv@ucvvirtual.edu.pe"
 git config --global user.name "Knythe"

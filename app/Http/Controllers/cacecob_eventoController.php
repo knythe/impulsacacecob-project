@@ -92,10 +92,11 @@ class cacecob_eventoController extends Controller
             DB::beginTransaction();
             $evento->update($request->validated());
             DB::commit();
-            return redirect()->route('eventos.index')->with('success', 'Evento Editado');
+            return response()->json(['success' => 'Rol Editado', 'evento' => $evento], 200);
         } catch (Exception $e) {
             DB::rollBack();
-            return redirect()->route('eventos.index')->with('error', 'Error al editar el evento');
+            return response()->json(['error' => 'No se pudo editar el rol.'], 500);
+
         }
     }
 
@@ -116,10 +117,10 @@ class cacecob_eventoController extends Controller
             $evento->delete();
     
             // Redirecciona con un mensaje de éxito
-            return redirect()->route('eventos.index')->with('success', 'Evento Eliminado');
+            return response()->json(['success' => 'Evento Eliminado'], 200);
         } catch (Exception $e) {
             // Maneja cualquier excepción que pueda ocurrir
-            return redirect()->route('eventos.index')->with('error', 'Error al eliminar el ciclo');
+            return response()->json(['error' => 'No se pudo eliminar el evento.'], 500);
         }
     }
 }

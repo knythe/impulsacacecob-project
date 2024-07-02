@@ -56,7 +56,7 @@
                         <li class="breadcrumb-item"><a class="text-primary-cacecob" href="{{route ('panel')}}">Inicio</a></li>
                         <li class="breadcrumb-item"><a class="text-primary-cacecob" href="{{route ('eventos.index')}}">Ciclos</a></li>
                         <li class="breadcrumb-item active">Registrar Eventos</li>
-                        
+
 
                     </ol>
                     <div class="row">
@@ -67,22 +67,25 @@
                                     <h6 class="m-0 font-weight-bold text-primary-cacecob">REGISTRAR EVENTO CACECOB</h6>
                                 </div>
                                 <div class="card-body">
-                                    <form class="edit_ciclo" action="{{ route('ciclos.store') }}" method="POST">
+                                    <form id="create_evento" action="{{ route('eventos.store') }}" method="POST">
                                         <!--ROUTES-->
                                         @csrf
-                                        
+
                                         <div class="form-group row">
                                             <div class="form-group col-sm-6 mb-3 mb-sm-0">
                                                 <label for="tipo_evento"> Tipo de evento:</label>
-                                                <select class="form-control" id="estado" name="estado" required>
-                                                    <option value="Seminario" selected class="text-center">Seminario</option>
+                                                <select class="form-control" id="tipo_evento" name="tipo_evento" required>
+                                                    <option value="" class="text-center">-- SELECCIONAR --</option>
+                                                    <option value="Seminario" class="text-center">Seminario</option>
                                                     <option value="Curso Especializado" class="text-center">Curso Especializado</option>
                                                     <option value="Diplomado" class="text-center">Diplomado</option>
+                                                    <option value="Congreso internacional" class="text-center">Congreso internacional</option>
+                                                    <option value="Taller juridico" class="text-center">Taller juridico</option>
                                                 </select>
                                             </div>
                                             <div class="form-group col-sm-6">
                                                 <label for="nombre_evento"> Nombre del evento:</label>
-                                                <textarea class="form-control" name="nombre_evento" id="nombre_evento" title="Solo alfanumericos" placeholder="Ingresa el nombre del evento" oninput="soloLetrasNumeros(this)" required></textarea>
+                                                <textarea class="form-control" name="nombre_evento" id="nombre_evento" title="Solo alfanumericos" placeholder="Ingresa el nombre del evento"  oninput="soloLetras(this)" required></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -91,48 +94,35 @@
                                                 <input type="date" class="form-control" id="fecha_programada" name="fecha_programada" title="Ingrese la fecha de programada del ciclo" placeholder="Ingresar fecha de inicio" value="" required>
                                             </div>
                                             <div class="form-group col-sm-6">
-                                            <label for="fecha_finalizacion"> Fecha de finalizacion del evento:</label>
-                                            <input type="date" class="form-control" id="fecha_finalizacion" name="fecha_finalizacion" title="Ingrese la fecha de finalizacion del ciclo" placeholder="Ingresar fecha de inicio" value="" required>
+                                                <label for="fecha_finalizacion"> Fecha de finalizacion del evento:</label>
+                                                <input type="date" class="form-control" id="fecha_finalizacion" name="fecha_finalizacion" title="Ingrese la fecha de finalizacion del ciclo" placeholder="Ingresar fecha de inicio" value="" required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
 
                                             <div class="form-group col-sm-6 mb-3 mb-sm-0">
-                                                <label for="empleado_id"> Personal responsable:</label>
-                                                <select class="form-control" id="empleado_id" name="empleado_id" required>
-                                                   
-                                                </select>
+                                                <label for="cant_horas_academicas"> Cantidad de horas academicas:</label>
+                                                <input type="text" class="form-control" id="cant_horas_academicas" name="cant_horas_academicas" title="Ingrese la fecha de finalizacion del ciclo" maxlength="3" placeholder="Ingresar la cantidad de horas academicas" oninput="soloNumeros(this)" required>
                                             </div>
                                             <div class="form-group col-sm-6">
-                                                <label for="campus"> Sucursal:</label>
-                                                <input type="text" class="form-control" name="campus" id="campus" placeholder="Ingrese la sucursal para el ciclo" oninput="soloLetrasNumeros(this)" required>
-                                            </div>
-
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="form-group col-sm-12">
-                                                <label for="direccion_campus"> Direccion de la sucursal:</label>
-                                                <input type="text" class="form-control" name="direccion_campus" id="direccion_campus" placeholder="Ingrese direccion de la sucursal" oninput="soloLetrasNumeros(this)"  required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="form-group col-sm-12 mb-3 mb-sm-0">
-                                                <label for="referencia_campus"> Referencia de la sucursal:</label>
-                                                <input type="text" class="form-control" name="referencia_campus" id="referencia_campus" placeholder="Ingrese referencia de la sucursal" oninput="soloLetrasNumeros(this)" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="form-group col-sm-12 mb-3 mb-sm-0">
-                                                <!-- Linea que me permite editar el estado en tiempo real-->
-                                                <label for="estado"> Estado:</label>
-                                                <select class="form-control" id="estado" name="estado" required>
-                                                   
+                                                <label for="modalidad"> Modalidad:</label>
+                                                <select class="form-control" id="modalidad" name="modalidad" required>
+                                                    <option value="" class="text-center">-- SELECCIONAR --</option>
+                                                    <option value="Virtual" class="text-center">Virtual</option>
+                                                    <option value="Presencial" class="text-center">Presencial</option>
                                                 </select>
-
                                             </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <div class="form-group col-sm-12 mb-3 mb-sm-0">
+                                                <label for="costo"> Costo del evento:</label>
+                                                <input type="number" class="form-control text-center" name="costo" id="costo" placeholder="Ingrese el costo del evento" step="0.01" min="0" oninput="soloLetrasNumeros(this)" required>
+                                            </div>
+                                        </div>
+                                        <hr>
+
                                         <div>
-                                            <button type="submit" class="btn btn-primary-cacecob btn-ciclos btn-block">Actualizar</button>
+                                            <button type="submit" class="btn btn-primary-cacecob btn-ciclos btn-block">Guardar</button>
                                             <button type="reset" class="btn btn-secundary btn-ciclos btn-block">Reiniciar</button>
                                         </div>
                                     </form>
@@ -185,8 +175,8 @@
             </div>
         </div>
     </div>
-    
-    
+
+
 
 
     <!-- -->
@@ -198,6 +188,7 @@
     <script src="{{asset ('assets/jquery-easing/jquery.easing.min.js')}}"></script>
     <!-- Custom scripts for all pages-->
     <script src="{{asset ('js/scripts.js')}}"></script>
+    <script src="{{asset ('js/eventos.js')}}"></script>
     <!-- Page level plugins -->
     <script src="{{asset ('assets/datatables/jquery.dataTables.min.js')}}"></script>
 

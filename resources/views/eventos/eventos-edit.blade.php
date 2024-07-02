@@ -59,88 +59,125 @@
                     </ol>
                     <div class="row">
                         <!-- Primera mitad -->
-                        <div class="col-lg-5 mx-auto">
+                        <div class="col-lg-10 mx-auto">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary-cacecob">Editar Evento</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary-cacecob">REGISTRAR EVENTO CACECOB</h6>
                                 </div>
                                 <div class="card-body">
-                                    <!--<form action="{{route ('ciclos.update',['ciclo'=>'$ciclo'])}}" method="post">-->
-                                    <form action="{{ route('eventos.update', $evento->id) }}" method="POST">
+
+                                    <form class="edit_evento" action="{{ route('eventos.update', $evento->id) }}" method="POST">
                                         <!--ROUTES-->
                                         @csrf
                                         @method('PUT')
-                                        
-                                        <div class="form-group">
-                                            <label for="nombre_evento"> Nombre del evento:</label>
-                                            <input type="text" class="form-control" name="nombre_evento" id="nombre_evento" title="Solo alfanumericos" placeholder="Ingresa el nombre del evento" value="{{($evento->nombre_evento)}}" required>
+
+                                        <div class="form-group row">
+                                            <div class="form-group col-sm-6 mb-3 mb-sm-0">
+                                                <label for="tipo_evento"> Tipo de evento:</label>
+                                                <select class="form-control" id="tipo_evento" name="tipo_evento" required>
+
+                                                    @if ($evento->tipo_evento == 'Seminario')
+                                                    <option value="Seminario" selected class="text-center">Seminario</option>
+                                                    <option value="Curso Especializado" class="text-center">Curso Especializado</option>
+                                                    <option value="Diplomado" class="text-center">Diplomado</option>
+                                                    <option value="Congreso internacional" class="text-center">Congreso internacional</option>
+                                                    <option value="Taller juridico" class="text-center">Taller juridico</option>
+                                                    @elseif ($evento->tipo_evento == 'Curso Especializado')
+                                                    <option value="Curso Especializado" selected class="text-center">Curso Especializado</option>
+                                                    <option value="Seminario" class="text-center">Seminario</option>
+                                                    <option value="Diplomado" class="text-center">Diplomado</option>
+                                                    <option value="Congreso internacional" class="text-center">Congreso internacional</option>
+                                                    <option value="Taller juridico" class="text-center">Taller juridico</option>
+                                                    @elseif ($evento->tipo_evento == 'Diplomado')
+                                                    <option value="Diplomado" selected class="text-center">Diplomado</option>
+                                                    <option value="Seminario" class="text-center">Seminario</option>
+                                                    <option value="Curso Especializado" class="text-center">Curso Especializado</option>
+                                                    <option value="Congreso internacional" class="text-center">Congreso internacional</option>
+                                                    <option value="Taller juridico" class="text-center">Taller juridico</option>
+                                                    @elseif ($evento->tipo_evento == 'Congreso internacional')
+                                                    <option value="Congreso internacional" selected class="text-center">Congreso internacional</option>
+                                                    <option value="Seminario" class="text-center">Seminario</option>
+                                                    <option value="Curso Especializado" class="text-center">Curso Especializado</option>
+                                                    <option value="Diplomado" class="text-center">Diplomado</option>
+                                                    <option value="Taller juridico" class="text-center">Taller juridico</option>
+                                                    @elseif ($evento->tipo_evento == 'Taller juridico')
+                                                    <option value="Taller juridico" selected class="text-center">Taller juridico</option>
+                                                    <option value="Seminario" class="text-center">Seminario</option>
+                                                    <option value="Curso Especializado" class="text-center">Curso Especializado</option>
+                                                    <option value="Diplomado" class="text-center">Diplomado</option>
+                                                    <option value="Congreso internacional" class="text-center">Congreso internacional</option>
+                                                    @endif
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-sm-6">
+                                                <label for="nombre_evento"> Nombre del evento:</label>
+                                                <textarea class="form-control" name="nombre_evento" id="nombre_evento" title="Solo alfanumericos" placeholder="Ingresa el nombre del evento" oninput="soloLetras(this)" required>{{($evento->nombre_evento)}}</textarea>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="fecha_programada"> Fecha programada:</label>
-                                            <input type="date" class="form-control" id="fecha_programada" name="fecha_programada" title="Formato Fecha" placeholder="Ingresar fecha programada del evento" value="{{($evento->fecha_programada)}}" required>
+                                        <div class="form-group row">
+                                            <div class="form-group col-sm-6 mb-3 mb-sm-0">
+                                                <label for="fecha_programada"> Fecha programada del evento:</label>
+                                                <input type="date" class="form-control" id="fecha_programada" name="fecha_programada" title="Ingrese la fecha de programada del ciclo" placeholder="Ingresar fecha de inicio" value="{{($evento->fecha_programada)}}" required>
+                                            </div>
+                                            <div class="form-group col-sm-6">
+                                                <label for="fecha_finalizacion"> Fecha de finalizacion del evento:</label>
+                                                <input type="date" class="form-control" id="fecha_finalizacion" name="fecha_finalizacion" title="Ingrese la fecha de finalizacion del ciclo" placeholder="Ingresar fecha de inicio" value="{{($evento->fecha_finalizacion)}}" required>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="costo"> Costo del evento:</label>
-                                            <input type="number" class="form-control" name="costo" id="costo" placeholder="Ingrese el costo del evento" step="0.01" min="0" value="{{($evento->costo)}}" required>
+                                        <div class="form-group row">
+
+                                            <div class="form-group col-sm-6 mb-3 mb-sm-0">
+                                                <label for="cant_horas_academicas"> Cantidad de horas academicas:</label>
+                                                <input type="text" class="form-control" id="cant_horas_academicas" name="cant_horas_academicas" title="Ingrese la fecha de finalizacion del ciclo" maxlength="3" placeholder="Ingresar la cantidad de horas academicas" value="{{($evento->cant_horas_academicas)}}" oninput="soloNumeros(this)" required>
+                                            </div>
+                                            <div class="form-group col-sm-6">
+                                                <label for="modalidad"> Modalidad:</label>
+                                                <select class="form-control" id="modalidad" name="modalidad" required>
+                                                    @if ($evento->modalidad == 'Virtual')
+                                                    <option value="Virtual" selected class="text-center">Virtual</option>
+                                                    <option value="Presencial" class="text-center">Presencial</option>
+                                                    @else
+                                                    <option value="Presencial" selected class="text-center">Presencial</option>
+                                                    <option value="Virtual" class="text-center">Virtual</option>
+                                                    @endif
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="estado"> Estado:</label>
-                                            <select class="form-control" id="estado" name="estado" required>
-                                                <option value="">--Seleccionar--</option>
-                                                <option value="0">Activo</option>
-                                                <option value="1">Inactivo</option>
-                                            </select>
+                                        <div class="form-group row">
+                                            <div class="form-group col-sm-6 mb-3 mb-sm-0">
+                                                <label for="costo"> Costo del evento:</label>
+                                                <input type="number" class="form-control text-center" name="costo" id="costo" placeholder="Ingrese el costo del evento" step="0.01" min="0" oninput="soloLetrasNumeros(this)" value="{{($evento->costo)}}" required>
+                                            </div>
+                                            <div class="form-group col-sm-6 mb-3 mb-sm-0">
+                                                <label for="costo"> Estado:</label>
+                                                <select class="form-control" id="estado" name="estado" required>
+                                                    @if ($evento->estado == 1)
+                                                    <option value="1" selected class="text-center">Activo</option>
+                                                    <option value="0" class="text-center">Inactivo</option>
+                                                    @else
+                                                    <option value="0" selected class="text-center">Inactivo</option>
+                                                    <option value="1" class="text-center">Activo</option>
+                                                    @endif
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div> 
+                                        <hr>
+
+                                        <div>
                                             <button type="submit" class="btn btn-primary-cacecob btn-ciclos btn-block">Actualizar</button>
                                             <button type="reset" class="btn btn-secundary btn-ciclos btn-block">Reiniciar</button>
                                         </div>
-
-                                        <!---<a href="index.html" class="btn btn-primary btn-ciclos btn-block">
-                                            Login
-                                        </a>-->
-                                        <hr>
-
                                     </form>
 
-                                    <!--<form action="" method="post">
-                                    <div class="row g-3">
-                                        <label for="nombre" class="form-label">Nombre</label>
-                                        <input type="text" name="nombre" id="nombre" class="form-control">
-                                    </div>
-        
 
 
-                                    </form>-->
-
-
-
-
-                                    <!-- Contenido de la primera mitad -->
-                                    <!--<div class="p-5">
-                                        <div class="text-center">
-                                            <h1 class="h4 text-gray-900 mb-4">#Aquivaunformularioderegistro</h1>
-                                        </div>
-                                        <form class="user">
-                                            <div class="form-group">
-                                                <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
-                                            </div>
-                                            <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                                Login
-                                            </a>
-                                            <hr>
-                                        </form>
-                                        <hr>
-                                    </div>-->
                                 </div>
                             </div>
                         </div>
                         <!-- Segunda mitad -->
 
                     </div>
+
                 </div>
 
                 <!-- /.container-fluid -->
@@ -211,6 +248,7 @@
     <script src="{{asset ('assets/jquery-easing/jquery.easing.min.js')}}"></script>
     <!-- Custom scripts for all pages-->
     <script src="{{asset ('js/scripts.js')}}"></script>
+    <script src="{{asset ('js/eventos.js')}}"></script>
     <!-- Page level plugins -->
     <script src="{{asset ('assets/datatables/jquery.dataTables.min.js')}}"></script>
 

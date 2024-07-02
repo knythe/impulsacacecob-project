@@ -58,96 +58,30 @@
 
                     </ol>
                     <div class="row">
-                        <!-- Primera mitad -->
-                        <div class="col-lg-4">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary-cacecob">Crear nuevo evento</h6>
-                                </div>
-                                <div class="card-body">
-                                    <form action="{{route ('eventos.store')}}" method="post">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="nombre_evento"> Nombre del evento:</label>
-                                            <input type="text" class="form-control" name="nombre_evento" id="nombre_evento" title="Solo alfanumericos" placeholder="Ingresa el nombre del evento" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="fecha_programada"> Fecha programada:</label>
-                                            <input type="date" class="form-control" id="fecha_programada" name="fecha_programada" title="Formato Fecha" placeholder="Ingresar fecha programada del evento" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="costo"> Costo del evento:</label>
-                                            <input type="number" class="form-control" name="costo" id="costo" placeholder="Ingrese el costo del evento" step="0.01" min="0" required>
-                                        </div>
-                                        <!--<div class="form-group">
-                                            <label for="estado"> Estado:</label>
-                                            <select class="form-control" id="estado" name="estado">
-                                                <option value="">--- Selecciona estado ---</option>
-                                                <option value="0">Activo</option>
-                                                <option value="1">Inactivo</option>
-                                            </select>
-                                        </div>-->
-                                        <div>
-                                            <button type="submit" class="btn btn-primary-cacecob btn-eventos btn-block">Guardar</button>
-                                        </div>
 
-                                        <!---<a href="index.html" class="btn btn-primary btn-ciclos btn-block">
-                                            Login
-                                        </a>-->
-                                        <hr>
-
-                                    </form>
-
-                                    <!--<form action="" method="post">
-                                    <div class="row g-3">
-                                        <label for="nombre" class="form-label">Nombre</label>
-                                        <input type="text" name="nombre" id="nombre" class="form-control">
-                                    </div>
-        
-
-
-                                    </form>-->
-
-
-
-
-                                    <!-- Contenido de la primera mitad -->
-                                    <!--<div class="p-5">
-                                        <div class="text-center">
-                                            <h1 class="h4 text-gray-900 mb-4">#Aquivaunformularioderegistro</h1>
-                                        </div>
-                                        <form class="user">
-                                            <div class="form-group">
-                                                <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
-                                            </div>
-                                            <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                                Login
-                                            </a>
-                                            <hr>
-                                        </form>
-                                        <hr>
-                                    </div>-->
-                                </div>
-                            </div>
-                        </div>
                         <!-- Segunda mitad -->
-                        <div class="col-lg-8">
+                        <div class="col-lg-12">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary-cacecob">Eventos Registrados</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary-cacecob">EVENTOS CACECOB REGISTRADOS</h6>
 
                                 </div>
                                 <div class="card-body">
+                                    <div class="d-flex justify-content-end">
+                                        <a href="{{route ('eventos.create')}}" class="btn btn-primary-cacecob">Agregar nuevo ciclo</a>
+                                    </div>
+                                    <hr>
                                     <!-- Contenido de la segunda mitad -->
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
+                                                    <th>Tipo de evento</th>
                                                     <th>Nombre del Evento</th>
-                                                    <th>Fecha Programada</th>
+                                                    <th>Fecha programada</th>
+                                                    <th>Fecha de finalizacion</th>
+                                                    <th>Cantidad de horas academicas</th>
+                                                    <th>Modalidad del evento</th>
                                                     <th>Costo</th>
                                                     <th>Estado</th>
                                                     <th>Acciones</th>
@@ -158,16 +92,28 @@
 
                                                 <tr>
                                                     <td>
+                                                        {{$evento->tipo_evento}}
+                                                    </td>
+                                                    <td>
                                                         {{$evento->nombre_evento}}
                                                     </td>
                                                     <td>
-                                                        {{$evento->fecha_programada}}
+                                                        {{\Carbon\Carbon::parse($evento->fecha_programada)->format('d-m-Y')}}
                                                     </td>
                                                     <td>
-                                                        {{$evento->costo}}
+                                                        {{\Carbon\Carbon::parse($evento->fecha_finalizacion)->format('d-m-Y')}}
                                                     </td>
                                                     <td>
-                                                        @if ($evento->estado==0)
+                                                        {{$evento->cant_horas_academicas}} hrs
+                                                    </td>
+                                                    <td>
+                                                        {{$evento->modalidad}}
+                                                    </td>
+                                                    <td>
+                                                        S/. {{$evento->costo}} .0
+                                                    </td>
+                                                    <td>
+                                                        @if ($evento->estado==1)
                                                         <span class="fw-bolder p-1 rounded bg-warning text-black d-flex justify-content-center align-items-center" style="height: 35px; width: 70px;">Activo</span>
                                                         @else
                                                         <span class="fw-bolder p-1 rounded bg-info text-black d-flex justify-content-center align-items-center" style="height: 35px; width: 70px;">Inactivo</span>
@@ -182,10 +128,10 @@
                                                                 <button type="submit" class="btn btn-success" title="Editar"><i class="fas fa-edit"></i></button>
                                                             </form>
                                                             <form action="" method="post">
-                                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal-{{$evento->id}}" title="Eliminar"><i class="fas fa-trash"></i></button>
+                                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal-{{$evento->id}}" title="Eliminar"><i class="fas fa-trash"></i></button>
                                                             </form>
-                                                               
-                                                          
+
+
 
                                                             <!--<button type="button" class="btn btn-success">Pagos</button>-->
                                                         </div>
@@ -196,7 +142,7 @@
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header text-center">
-                                                                <h5 class="modal-title" id="exampleModalLabel" >Mensaje de confirmacion</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">Mensaje de confirmacion</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
@@ -204,12 +150,12 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary btn-ciclos" data-bs-dismiss="modal">Cancelar</button>
-                                                                <form action="{{route('eventos.destroy',['evento'=>$evento->id])}}" method="post">
+                                                                <form class="delete_evento" action="{{route('eventos.destroy',['evento'=>$evento->id])}}" method="post">
                                                                     @method('DELETE')
                                                                     @csrf
-                                                                <button type="submit" class="btn btn-danger btn-ciclos">Confirmar</button>
+                                                                    <button type="submit" class="btn btn-danger btn-ciclos">Confirmar</button>
                                                                 </form>
-                                                                
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -263,27 +209,8 @@
             </div>
         </div>
     </div>
-    
-    @if (session('success'))
-    <script>
-        let message = "{{session('success')}}";
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 1500,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.onmouseenter = Swal.stopTimer;
-                toast.onmouseleave = Swal.resumeTimer;
-            }
-        });
-        Toast.fire({
-            icon: "success",
-            title: message
-        });
-    </script>
-    @endif
+
+
 
 
     <!-- -->
@@ -295,6 +222,8 @@
     <script src="{{asset ('assets/jquery-easing/jquery.easing.min.js')}}"></script>
     <!-- Custom scripts for all pages-->
     <script src="{{asset ('js/scripts.js')}}"></script>
+    <script src="{{asset ('js/eventos.js')}}"></script>
+
     <!-- Page level plugins -->
     <script src="{{asset ('assets/datatables/jquery.dataTables.min.js')}}"></script>
 
