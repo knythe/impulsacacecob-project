@@ -9,6 +9,7 @@ use App\Models\Apoderado;
 use App\Models\Comprobante;
 use App\Models\Empleado;
 use App\Models\Estudiante;
+use App\Models\pago;
 use App\Models\Role;
 use App\Models\Usuario;
 use Exception;
@@ -26,44 +27,26 @@ class Academia_ventaController extends Controller
     {
         //
         $academia_ventas = Academia_venta::get();
-        //apoderados
-        $ultimo_apoderado = Apoderado::latest()->first();
-        $nombre_completo_apoderado = $ultimo_apoderado ? $ultimo_apoderado->nombres . ' ' . $ultimo_apoderado->apellidos : '';
-        $apoderado_id = $ultimo_apoderado ? $ultimo_apoderado->id : null;
-        //estudiantes
-        $ultimo_estudiante = Estudiante::latest()->first();
-        $nombre_completo_estudiante = $ultimo_estudiante ? $ultimo_estudiante->nombres . ' ' . $ultimo_estudiante->apellidos : '';
-        $estudiante_id = $ultimo_estudiante ? $ultimo_estudiante->id : null;
-        //comprobantes
-        $ultimo_comprobante = Comprobante::latest()->first();
-        $fecha_inscripcion = $ultimo_comprobante ? $ultimo_comprobante->fecha_pago : null;
-        $codigo_operacion = $ultimo_comprobante ? $ultimo_comprobante->codigo_operacion : null;
-        $monto_cancelado = $ultimo_comprobante ? $ultimo_comprobante->monto : null;
-        $tipo_pago_texto = $ultimo_comprobante ? $ultimo_comprobante->tipo_pago_texto : null;
-        $comprobante_id = $ultimo_comprobante ? $ultimo_comprobante->id : null;
+        //PAGOS
+        $ultimo_pago= pago::latest()->first();
+        $pago_id = $ultimo_pago ? $ultimo_pago->id : null;
+
         //usuarios
-        $usuarios = Usuario::where('estado', 0)->get();
+        $usuarios = Usuario::where('estado', 1)->get();
         //ciclos
-        $ciclos = Academia_ciclo::where('estado', 0)->get();
+        $ciclos = Academia_ciclo::where('estado', 1)->get();
         //empleados
-        $empleados = Empleado::where('estado', 0)->with('usuario')->get();
+        $empleados = Empleado::where('estado', 1)->with('usuario')->get();
 
 
         return view(
             'asesor_impulsa.ventas-impulsa',
             compact(
                 'academia_ventas',
-                'nombre_completo_apoderado',
-                'apoderado_id',
-                'nombre_completo_estudiante',
-                'estudiante_id',
-                'comprobante_id',
-                'fecha_inscripcion',
-                'codigo_operacion',
-                'monto_cancelado',
-                'tipo_pago_texto',
+                'pago_id',
                 'empleados',
-                'ciclos'
+                'ciclos',
+                'ultimo_pago'
             )
         );
     }

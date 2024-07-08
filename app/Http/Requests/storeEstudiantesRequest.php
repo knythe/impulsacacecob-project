@@ -25,13 +25,16 @@ class storeEstudiantesRequest extends FormRequest
     {
         return [
             //
-            'apoderado_id' => 'required',
+            'apoderado_id' => 'required|exists:apoderados,id',
             'nombres' => 'required|max:80',
             'apellidos'=>'required|max:80',
-            'dni' => 'required|max:10',
-            'sede' => 'required|max:20',
+            'dni' => 'required|max:10|unique:estudiantes,dni',
             'telefono' => 'required|max:15',
-            'estado' => 'nullable'
+            'email'=>'nullable|max:80',
+            'sede' => 'required|max:20',
+            'direccion' => 'required|max:100',
+            'estado' => 'nullable',
+            'fecha_registro'=>'nullable'
         ];
     }
 }

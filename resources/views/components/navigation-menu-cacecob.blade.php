@@ -28,7 +28,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="{{route ('academia_ventas.index')}}">
+        <a class="nav-link" href="">
             <i class="fas fa-fw fa-address-card"></i>
             <span>REGISTROS</span>
         </a>

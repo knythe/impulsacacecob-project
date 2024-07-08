@@ -53,8 +53,8 @@
                 <div class="container">
                     <ol class="breadcrumb mb-4">
 
-                        <li class="breadcrumb-item"><a class="text-primary-impulsa">Registrar Apoderado</a></li>
-                        <li class="breadcrumb-item"><a class="text-primary-impulsa">Registrar Estudiante</a></li>
+                        <li class="breadcrumb-item">Registrar Apoderado</li>
+                        <li class="breadcrumb-item">Registrar Estudiante</li>
                         <li class="breadcrumb-item">Registrar Comprobante</li>
                         <li class="breadcrumb-item">Registrar Venta</li>
 
@@ -111,20 +111,21 @@
                                                 </div>
                                                 <div class="form-group col-sm-6">
                                                     <label for="email">Correo electronico:</label>
-                                                    <input type="text" class="form-control" id="email" name="email" placeholder="Ingrese email del apoderado">
+                                                    <input type="text" class="form-control" id="email" name="email" placeholder="Ingrese email del apoderado"  oninput="soloLetrasNumeros(this)">
                                                     <label for="email" class="center-text-label">*completar en caso sea necesario*</label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="form-group col-sm-6">
-                                                </div>
-                                                <div class="form-group col-sm-6">
-                                                    <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos w-50" title="Siguiente">Siguiente</button>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- END DATOS ESTUDIANTE -->
+                                        <div>
+                                            <!--<button type="submit" class="btn btn-primary-personal btn-ciclos">Siguiente</button>-->
+                                            <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos" title="Eliminar">Siguiente</button>
+                                            <!--<button type="button" class="btn btn-primary-impulsa-estudiante btn-ciclos" title="Eliminar"><i class=" icon-separator fas fa-arrow-alt-circle-right"></i>Regresar</button>-->
+                                        </div>
                                     </form>
+                                    <hr>
+
+
                                 </div>
                             </div>
                         </div>

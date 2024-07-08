@@ -75,38 +75,20 @@
                                             <div class="form-group col-sm-6 mb-3 mb-sm-0">
                                                 <label for="tipo_evento"> Tipo de evento:</label>
                                                 <select class="form-control" id="tipo_evento" name="tipo_evento" required>
+                                                    @php
+                                                    $tipos_evento = [
+                                                    "Seminario" => "Seminario",
+                                                    "Curso Especializado" => "Curso Especializado",
+                                                    "Diplomado" => "Diplomado",
+                                                    "Congreso internacional" => "Congreso internacional",
+                                                    "Taller juridico" => "Taller juridico"
+                                                    ];
+                                                    @endphp
 
-                                                    @if ($evento->tipo_evento == 'Seminario')
-                                                    <option value="Seminario" selected class="text-center">Seminario</option>
-                                                    <option value="Curso Especializado" class="text-center">Curso Especializado</option>
-                                                    <option value="Diplomado" class="text-center">Diplomado</option>
-                                                    <option value="Congreso internacional" class="text-center">Congreso internacional</option>
-                                                    <option value="Taller juridico" class="text-center">Taller juridico</option>
-                                                    @elseif ($evento->tipo_evento == 'Curso Especializado')
-                                                    <option value="Curso Especializado" selected class="text-center">Curso Especializado</option>
-                                                    <option value="Seminario" class="text-center">Seminario</option>
-                                                    <option value="Diplomado" class="text-center">Diplomado</option>
-                                                    <option value="Congreso internacional" class="text-center">Congreso internacional</option>
-                                                    <option value="Taller juridico" class="text-center">Taller juridico</option>
-                                                    @elseif ($evento->tipo_evento == 'Diplomado')
-                                                    <option value="Diplomado" selected class="text-center">Diplomado</option>
-                                                    <option value="Seminario" class="text-center">Seminario</option>
-                                                    <option value="Curso Especializado" class="text-center">Curso Especializado</option>
-                                                    <option value="Congreso internacional" class="text-center">Congreso internacional</option>
-                                                    <option value="Taller juridico" class="text-center">Taller juridico</option>
-                                                    @elseif ($evento->tipo_evento == 'Congreso internacional')
-                                                    <option value="Congreso internacional" selected class="text-center">Congreso internacional</option>
-                                                    <option value="Seminario" class="text-center">Seminario</option>
-                                                    <option value="Curso Especializado" class="text-center">Curso Especializado</option>
-                                                    <option value="Diplomado" class="text-center">Diplomado</option>
-                                                    <option value="Taller juridico" class="text-center">Taller juridico</option>
-                                                    @elseif ($evento->tipo_evento == 'Taller juridico')
-                                                    <option value="Taller juridico" selected class="text-center">Taller juridico</option>
-                                                    <option value="Seminario" class="text-center">Seminario</option>
-                                                    <option value="Curso Especializado" class="text-center">Curso Especializado</option>
-                                                    <option value="Diplomado" class="text-center">Diplomado</option>
-                                                    <option value="Congreso internacional" class="text-center">Congreso internacional</option>
-                                                    @endif
+                                                    @foreach ($tipos_evento as $value => $label)
+                                                    <option value="{{ $value }}" class="text-center" @if($evento->tipo_evento == $value) selected @endif>{{ $label }}</option>
+                                                    @endforeach
+
                                                 </select>
                                             </div>
                                             <div class="form-group col-sm-6">

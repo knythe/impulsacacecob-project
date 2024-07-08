@@ -237,6 +237,10 @@
   button:focus:not(:focus-visible) {
     outline: 0;
   }
+  .center-text-label{
+
+    color: blue;
+  }
   
   input,
   button,

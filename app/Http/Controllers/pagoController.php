@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\storeApoderadosRequest;
-use App\Http\Requests\UpdateApoderadosRequest;
-use App\Models\apoderado;
+use App\Http\Requests\storePagosrequest;
+use App\Models\comprobante;
+use App\Models\estudiante;
+use App\Models\pago;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ApoderadoController extends Controller
+class pagoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +19,21 @@ class ApoderadoController extends Controller
      */
     public function index()
     {
-        //
-        $apoderados = Apoderado::get();
-        return view('asesor_impulsa.registro-apoderado', ['eventos'=>$apoderados]);
+        //datos del ultimo apoderado y estudiante
+        $ultimo_estudiante = estudiante::latest()->first();
+        $estudiante_id = $ultimo_estudiante ? $ultimo_estudiante->id : null;
+        //datos del ultimo comprobante
+        $ultimo_comprobante = comprobante::latest()->first();
+        $comprobante_id = $ultimo_comprobante ? $ultimo_comprobante->id : null;
+
+
+        return view ('asesor_impulsa.registro-pago-impulsa',compact(
+            'ultimo_estudiante',
+            'estudiante_id',
+            'ultimo_comprobante',
+            'comprobante_id'
+
+        ));
     }
 
     /**
@@ -39,15 +52,15 @@ class ApoderadoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(storeApoderadosRequest $request)
+    public function store(storePagosrequest $request)
     {
         //
-
+        //dd($request);
         try {
             DB::beginTransaction();
-            $apoderado = apoderado::create($request->validated());
+            $pagos = pago::create($request->validated());
             DB::commit();
-            return response()->json($apoderado, 200);
+            return response()->json($pagos, 200);
         } catch (Exception $e) {
             DB::rollBack();
         }
@@ -71,12 +84,10 @@ class ApoderadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(apoderado $apoderado)
+    public function edit($id)
     {
-        return view('asesor_impulsa.registro-estudiante', ['apoderado' => $apoderado]);
+        //
     }
-    
-
 
     /**
      * Update the specified resource in storage.
@@ -85,17 +96,9 @@ class ApoderadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateApoderadosRequest $request, apoderado $apoderado)
+    public function update(Request $request, $id)
     {
-         try {
-            DB::beginTransaction();
-            $apoderado->update($request->validated());
-            DB::commit();
-            return response()->json(['success' => 'Rol Editado', 'role' => $apoderado], 200);
-        } catch (Exception $e) {
-            DB::rollBack();
-            return response()->json(['error' => 'No se pudo editar el rol.'], 500);
-        }
+        //
     }
 
     /**

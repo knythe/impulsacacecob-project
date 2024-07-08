@@ -51,68 +51,76 @@
 
                 <!-- Begin Page Content -->
                 <div class="container">
-                    ##
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item"><a class="text-primary-impulsa">Registrar Apoderado</a></li>
+                        <li class="breadcrumb-item"><a class="text-primary-impulsa">Registrar Estudiante</a></li>
+                        <li class="breadcrumb-item"><a class="text-primary-impulsa">Registrar Comprobante</a></li>
+                        <li class="breadcrumb-item">Registrar Venta</li>
+                    </ol>
 
                     <div class="card o-hidden border-0 shadow-lg my-5">
                         <div class="card-body p-0">
                             <!-- Nested Row within Card Body -->
                             <div class="col-lg-12">
                                 <div class="p-5">
-                                    <form action="{{ route('comprobantes.store') }}" class="user" method="post">
+                                    <form action="{{ route('comprobantes.store') }}" id="create_comprobante" method="post">
                                         @csrf
                                         <!-- DATOS DE INSCRIPCION -->
-                                        <h1 class="h4 text-gray-900 mb-1 text-center">DATOS DE PAGO</h1>
-                                        <div class="form-group-impulsa" style="margin-bottom:4px; padding-bottom: 0px">
-                                            <div class="form-group row" style="margin-bottom: 0px">
-                                                <!--<div class="form-group col-sm-4 mb-3 mb-sm-0">
-                                                    <label for="apellidos">Ciclo:</label>
-                                                    <select class="form-control" id="estado" name="estado" required>
-                                                        @foreach($ciclos as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->nombre_ciclo }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>-->
+                                        <h1 class="h4 text-gray-900 mb-1 text-center">DATOS DE COMPROBANTE</h1>
+                                        <hr>
+                                        <div class="form-group">
+                                            <div class="form-group row">
                                                 <div class="form-group col-sm-6">
-                                                    <label for="fecha_pago">Fecha de inscripcion:</label>
-                                                    <input type="date" class="form-control" id="fecha_pago" name="fecha_pago" placeholder="Celular">
+                                                    <label for="codigo_operacion">Codigo de operacion:</label>
+                                                    <input type="text" class="form-control" id="codigo_operacion" name="codigo_operacion" placeholder="Ingrese codigo de operacion" oninput="soloLetrasNumerosCaracteres(this)" required>
                                                 </div>
                                                 <div class="form-group col-sm-6">
+                                                    <label for="numero_comprobante">Numero de comprobante:</label>
+                                                    <input type="text" class="form-control" id="numero_comprobante" name="numero_comprobante" placeholder="Ingrese el numero de comprobante" oninput="soloLetrasNumerosCaracteres(this)" required>
+                                                    <label for="email" class="center-text-label">*es valido usar el mismo codigo de operacion*</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="form-group col-sm-4">
                                                     <label for="tipo_pago">Tipo de pago:</label>
                                                     <select class="form-control" id="tipo_pago" name="tipo_pago" required>
                                                         <option value="" class="text-center">- Seleccionar -</option>
-                                                        <option value="0" class="text-center">YAPE</option>
-                                                        <option value="1" class="text-center">PLIN</option>
-                                                        <option value="2" class="text-center">BCP</option>
+                                                        <option value="YAPE" class="text-center">YAPE</option>
+                                                        <option value="PLIN" class="text-center">PLIN</option>
+                                                        <option value="Transferencia BCP" class="text-center">Transferencia BCP</option>
+                                                        <option value="Transferencia INTERBANK" class="text-center">Transferencia INTERBANK"</option>
+                                                        <option value="Transferencia CCI CAJA PIURA" class="text-center">Transferencia CCI CAJA PIURA</option>
+                                                        <option value="Transferencia Banco de la Nacion" class="text-center">Transferencia Banco de la Nacion</option>
                                                     </select>
                                                 </div>
-                                            </div>
-                                            <div class="form-group row" style="margin-bottom: 0px">
-                                                <div class="form-group col-sm-6 mb-3 mb-sm-0">
-                                                    <label for="codigo_operacion">Codigo de operacion:</label>
-                                                    <input type="text" class="form-control" id="codigo_operacion" name="codigo_operacion" placeholder="Ingrese codigo de operacion">
+                                                <div class="form-group col-sm-4">
+                                                    <label for="fecha_pago">Fecha de pago:</label>
+                                                    <input type="date" class="form-control" id="fecha_pago" name="fecha_pago" placeholder="Celular" required>
                                                 </div>
-                                                <div class="form-group col-sm-6">
+                                                <div class="form-group col-sm-4">
                                                     <label for="monto">Monto cancelado:</label>
-                                                    <input type="number" class="form-control" id="monto" name="monto" placeholder="Ingrese monto cancelado">
-                                                </div>
-                                                <!--<div class="form-group col-sm-4">
-                                                    <label for="apellidos">Asesor(a):</label>
-                                                    <select class="form-control" id="estado" name="estado" required>
-                                                        @foreach($usuarios as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->user }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>-->
-                                                <div>
-                                                    <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos" title="Eliminar">Siguiente<i class="fas fa-arrow-alt-circle-right icon-separator"></i></button>
+                                                    <input type="number" class="form-control" id="monto" name="monto" placeholder="Ingrese monto cancelado" step="0.01" min="0" maxlength="3" required>
                                                 </div>
                                             </div>
-                                            <hr>
+                                            <div class="form-group row">
+                                                <div class="form-group col-sm-12 mb-3 mb-sm-0">
+                                                    <label for="observaciones">Observaciones:</label>
+                                                    <textarea class="form-control" name="observaciones" id="observaciones" title="Solo alfanumericos" placeholder="Ingresa observaciones" oninput="soloLetrasNumerosCaracteres(this)" required></textarea>
+                                                </div>
 
-
+                                                <hr>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="form-group col-sm-4">
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos w-100" title="Siguiente">Siguiente</button>
+                                                </div>
+                                            </div>
+                                            <!-- END DATOS DE INSCRIPCION-->
                                         </div>
-                                        <!-- END DATOS DE INSCRIPCION-->
-
 
 
 
@@ -165,26 +173,7 @@
             </div>
         </div>
     </div>
-    @if (session('success'))
-    <script>
-        let message = "{{session('success')}}";
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 1500,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.onmouseenter = Swal.stopTimer;
-                toast.onmouseleave = Swal.resumeTimer;
-            }
-        });
-        Toast.fire({
-            icon: "success",
-            title: message
-        });
-    </script>
-    @endif
+
 
 
     <!-- -->
@@ -196,6 +185,7 @@
     <script src="{{asset ('assets/jquery-easing/jquery.easing.min.js')}}"></script>
     <!-- Custom scripts for all pages-->
     <script src="{{asset ('js/scripts.js')}}"></script>
+    <script src="{{asset ('js/comprobantes.js')}}"></script>
     <!-- Page level plugins -->
     <script src="{{asset ('assets/datatables/jquery.dataTables.min.js')}}"></script>
 

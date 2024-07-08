@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\storeComprobantesRequest;
+use App\Http\Requests\UpdateComprobantesRequest;
 use App\Models\Academia_ciclo;
 use App\Models\Comprobante;
 use App\Models\Usuario;
@@ -22,8 +23,8 @@ class ComprobanteController extends Controller
         //
         $ciclos = Academia_ciclo::where('estado', 0)->get();
         $usuarios = Usuario::where('estado', 0)->get();
-        $comprobantes = Comprobante::get(); 
-        return view('asesor_impulsa.registro_comprobantes', compact('comprobantes','ciclos','usuarios'));
+        $comprobantes = Comprobante::get();
+        return view('asesor_impulsa.registro_comprobantes', compact('comprobantes', 'ciclos', 'usuarios'));
     }
 
     /**
@@ -49,10 +50,11 @@ class ComprobanteController extends Controller
             DB::beginTransaction();
             $comprobantes = Comprobante::create($request->validated());
             DB::commit();
+            return response()->json($comprobantes, 200);
         } catch (Exception $e) {
             DB::rollBack();
         }
-        return redirect()->route('academia_ventas.index');
+        return response()->json(['success' => 'Error al registrar comprobante'], 200);
     }
 
     /**
@@ -84,9 +86,19 @@ class ComprobanteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(UpdateComprobantesRequest $request, Comprobante $comprobante)
+    { {
+            //
+            try {
+                DB::beginTransaction();
+                $comprobante->update($request->validated());
+                DB::commit();
+                return response()->json(['success' => 'Comprobante Editado', 'role' => $comprobante], 200);
+            } catch (Exception $e) {
+                DB::rollBack();
+                return response()->json(['error' => 'No se pudo editar el rol.'], 500);
+            }
+        }
     }
 
     /**
