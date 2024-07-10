@@ -133,6 +133,7 @@
                                                 </div>
                                                 <div class="form-group col-sm-4">
                                                     <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos w-100" title="Siguiente">Siguiente</button>
+                                                    
                                                 </div>
                                             </div>
                                             <!-- END DATOS DE INSCRIPCION-->

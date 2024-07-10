@@ -56,7 +56,7 @@
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                      
+
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -75,47 +75,45 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($ventas_data as $venta)
+                                        @foreach ($ventasimpulsa as $venta)
                                         <tr>
                                             <td>
-                                                <span class="fw-bolder p-1 rounded bg-warning text-black d-flex justify-content-center align-items-center"> {{ $venta['asesor'] }}</span>
+                                                <span class="fw-bolder p-1 rounded bg-warning text-black d-flex justify-content-center align-items-center"> {{$venta->empleado->usuario->user}}</span>
                                             </td>
                                             <td>
-                                                {{ $venta['nombre_estudiante'] }}
+                                                {{ $venta->estudiante->nombres ?? '' }} {{$venta->estudiante->apellidos ?? ''}}
                                             </td>
                                             <td>
-                                                {{ $venta['dni_estudiante'] }}
+                                                {{$venta->estudiante->dni}}
                                             </td>
                                             <td>
-                                                {{ $venta['telefono_estudiante'] }}
+                                                {{ $venta->estudiante->telefono ?? 'S/N' }}
+
                                             </td>
                                             <td>
-                                                @if ($venta['sede']==0)
-                                                <span class="fw-bolder p-1 rounded bg-piura text-light d-flex justify-content-center align-items-center" style="height: 35px; width: 70px;">{{ $venta['sede_texto'] }}</span>
-                                                @elseif ($venta['sede'] == 1)
-                                                <span class="fw-bolder p-1 rounded bg-paita text-light d-flex justify-content-center align-items-center" style="height: 35px; width: 70px;">{{ $venta['sede_texto'] }}</span>
-                                                @elseif ($venta['sede'] == 2)
-                                                <span class="fw-bolder p-1 rounded bg-dark text-light d-flex justify-content-center align-items-center" style="height: 35px; width: 70px;">{{ $venta['sede_texto'] }}</span>
-                                                @endif
+                                                {{$venta->estudiante->sede}}
                                             </td>
                                             <td>
-                                                {{ $venta['nombre_apoderado'] }}
+                                                {{$venta->estudiante->apoderado->nombres ?? ''}} {{$venta->estudiante->apoderado->apellidos ?? ''}}
+
                                             </td>
                                             <td>
-                                                {{ $venta['parentesco'] }}
+                                                {{$venta->estudiante->apoderado->parentesco}}
+
                                             </td>
                                             <td>
-                                                {{ $venta['telefono_apoderado'] }}
+                                                {{$venta->estudiante->apoderado->telefono}}
+
                                             </td>
                                             <td>
 
-                                                @if ($venta['estado_venta']==0)
+                                                @if ($venta->estado==0)
                                                 <span class="fw-bolder p-1 rounded bg-green text-black d-flex justify-content-center align-items-center">PAGO</span>
-                                                @elseif ($venta['estado_venta']==1)
+                                                @elseif ($venta->estado==1)
                                                 <span class="fw-bolder p-1 rounded bg-yellow text-black d-flex justify-content-center align-items-center">DEUDOR</span>
-                                                @elseif ($venta['estado_venta']==2)
+                                                @elseif ($venta->estado==2)
                                                 <span class="fw-bolder p-1 rounded bg-danger text-light d-flex justify-content-center align-items-center;">RETIRADO</span>
-                                                @elseif ($venta['estado_venta']==3)
+                                                @elseif ($venta->estado=3)
                                                 <span class="fw-bolder p-1 rounded bg-reservado text-black d-flex justify-content-center align-items-center">RESERVAR</span>
                                                 @endif
                                             </td>
@@ -123,7 +121,7 @@
                                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                                     <form action="" method="get">
                                                         @csrf
-                                                        <button type="button"  class="btn btn-success" data-bs-toggle="modal" data-bs-target="" title="Editar"><i class="fas fa-edit"></i></button>
+                                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="" title="Editar"><i class="fas fa-edit"></i></button>
                                                     </form>
                                                     <!--<form action="" method="post">
                                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="" title="Eliminar"><i class="fas fa-calendar-alt"></i></button>

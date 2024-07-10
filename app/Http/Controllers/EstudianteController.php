@@ -35,43 +35,9 @@ class EstudianteController extends Controller
     }
 
     // Esta funcion me permitira buscar a los estudiantes por DNI
-    public function buscarPorDNI(Request $request)
+    public function buscarPorDNI()
     {
-        $dni = $request->input('dni');
-        $estudiante = Estudiante::where('dni', $dni)->first();
-
-        if ($estudiante) {
-            $academiaVenta = Academia_venta::where('estudiante_id', $estudiante->id)->first();
-            if ($academiaVenta) {
-                $apoderado = Apoderado::find($academiaVenta->apoderado_id);
-                $ciclo = Academia_ciclo::find($academiaVenta->ciclo_id);
-                $comprobante = Comprobante::find($academiaVenta->comprobante_id);
-                $empleado = Empleado::find($academiaVenta->empleado_id);
-
-
-                return view('pagos_impulsa.pagos-impulsa', [
-                    'datos_estudiante' => $estudiante,
-                    'datos_apoderado' => $apoderado,
-                    'contacto_apoderado' => $apoderado->telefono,
-                    'ciclo_contratado' => $ciclo->nombre_ciclo,
-                    'costo_ciclo' => $ciclo->costo,
-                    'numero_operacion' => $comprobante->codigo_operacion,
-                    'tipo_pago' => $comprobante->tipo_pago_texto,
-                    'fecha_pago' => $comprobante->fecha_pago,
-                    'asesor' => $empleado->usuario->user,
-                    'monto' => $comprobante->monto,
-
-                ]);
-            } else {
-                return view('buscar_estudiante', [
-                    'message' => 'No se encontraron ventas para el estudiante'
-                ]);
-            }
-        } else {
-            return view('pagos_impulsa.pagos-impulsa', [
-                'message' => 'Estudiante no encontrado'
-            ]);
-        }
+       return view('pagos_impulsa.pagos-impulsa');
     }
 
     /**

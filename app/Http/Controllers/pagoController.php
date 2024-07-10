@@ -6,6 +6,7 @@ use App\Http\Requests\storePagosrequest;
 use App\Models\comprobante;
 use App\Models\estudiante;
 use App\Models\pago;
+use Barryvdh\DomPDF\PDF;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,6 +36,7 @@ class pagoController extends Controller
 
         ));
     }
+    
 
     /**
      * Show the form for creating a new resource.

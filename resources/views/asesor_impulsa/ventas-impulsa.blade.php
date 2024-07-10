@@ -13,6 +13,9 @@
     <link rel="website icon" type="png" href="{{asset ('img/logo-impulsa.png')}}">
     <!-- ALERTA-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+
     <!--END ALERTA-->
     <!-- Bstrap Css-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -23,6 +26,18 @@
 
     <!-- Custom styles for this template -->
     <link href="{{asset ('css/template.css')}}" rel="stylesheet">
+    <style>
+       .hidden-during-pdf {
+            display: none !important;
+        }
+        .pdf-friendly-input {
+            background-color: white !important;
+            border: 1px solid #ccc !important;
+            box-shadow: none !important;
+        }
+    </style>
+
+
 
     <!-- Custom styles for this page -->
     <link href="{{asset ('assets/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
@@ -58,11 +73,12 @@
                         <li class="breadcrumb-item"><a class="text-primary-impulsa">Registrar Venta</a></li>
                     </ol>
                     <div class="card o-hidden border-0 shadow-lg my-5">
-                        <div class="card-body p-0">
+                        
+                        <div id="card-body-content" class="card-body p-0">
                             <!-- Nested Row within Card Body -->
                             <div class="col-lg-12">
                                 <div class="p-5">
-                                    <form action="{{ route('ventas.store') }}" class="user" method="post">
+                                    <form id="create_venta" action="{{ route('ventas.store') }}" class="user" method="post">
                                         @csrf
                                         <!-- DATOS ESTUDIANTE -->
                                         <h1 class="h4 text-gray-900 mb-1 text-center">DETALLES DE MATRICULA - ACADEMIA IMPULSA</h1>
@@ -126,7 +142,7 @@
                                                     <input type="number" class="form-control text-center" id="monto" name="monto" placeholder="Ingrese monto cancelado" value="{{$ultimo_pago->comprobante->monto}}" readonly>
                                                     <input type="hidden" id="pago_id" name="pago_id" value="{{$pago_id}}">
                                                 </div>
-                                                
+
                                             </div>
                                             <div class="form-group row" style="margin-bottom: 0px">
                                                 <div class="form-group col-sm-12 mb-3 mb-sm-0">
@@ -148,7 +164,7 @@
                                                     <label for="empleado_id">Asesor(a):</label>
                                                     <select class="form-control" id="empleado_id" name="empleado_id" required>
                                                         @foreach($empleados as $empleado)
-                                                        <option value ="{{ $empleado->id }}" class="text-center">{{ $empleado->usuario->user }}</option>
+                                                        <option value="{{ $empleado->id }}" class="text-center">{{ $empleado->usuario->user }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -173,7 +189,7 @@
                                             <!-- END DATOS ESTUDIANTE -->
                                             <div>
                                                 <!--<button type="submit" class="btn btn-primary-personal btn-ciclos">Siguiente</button>-->
-                                                <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos" title="Eliminar">Guardar</button>
+                                                <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos hide-on-pdf" id="save-button" title="Eliminar">Registrar venta</button>                                             
                                             </div>
                                     </form>
 
@@ -256,6 +272,7 @@
     <script src="{{asset ('assets/jquery-easing/jquery.easing.min.js')}}"></script>
     <!-- Custom scripts for all pages-->
     <script src="{{asset ('js/scripts.js')}}"></script>
+    <script src="{{asset ('js/pdf-content.js')}}"></script>
     <!-- Page level plugins -->
     <script src="{{asset ('assets/datatables/jquery.dataTables.min.js')}}"></script>
 
@@ -263,6 +280,11 @@
 
     <!-- Page level custom scripts -->
     <script src="{{asset ('assets/demo/datatables-demo.js')}}"></script>
+  
+
+
+
+
 
 </body>
 

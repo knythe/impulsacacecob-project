@@ -29,7 +29,7 @@ class storeEstudiantesRequest extends FormRequest
             'nombres' => 'required|max:80',
             'apellidos'=>'required|max:80',
             'dni' => 'required|max:10|unique:estudiantes,dni',
-            'telefono' => 'required|max:15',
+            'telefono' => 'nullable|max:15',
             'email'=>'nullable|max:80',
             'sede' => 'required|max:20',
             'direccion' => 'required|max:100',

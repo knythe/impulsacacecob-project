@@ -64,17 +64,28 @@ Route::resource('/impulsa/apoderados',ApoderadoController::class);
 Route::resource('/impulsa/estudiantes',EstudianteController::class);
 Route::resource('/impulsa/comprobantes',ComprobanteController::class);
 Route::resource('/impulsa/detalle/pago',pagoController::class);
-
-Route::get('/impulsa/ventas', [Academia_ventaController::class, 'asesorSales'])->name('/impulsa/ventas');
-Route::get('/buscar-estudiante', [EstudianteController::class, 'mostrarFormulario'])->name('buscarFormulario');
-Route::post('/buscar-estudiante', [EstudianteController::class, 'buscarPorDNI'])->name('buscarPorDNI');
+Route::get('/download-pdf', [pagoController::class, 'downloadPDF'])->name('download-pdf');
+Route::get('/academiaimpulsa/clientes/registros', [Academia_ventaController::class, 'ventasAsesor'])->name('/impulsa/ventas');
 
 
+
+
+
+
+
+Route::get('/buscar-estudiante', [EstudianteController::class, 'buscarPorDNI'])->name('buscarPorDNI');
+
+
+
+
+Route::get('/academiaimpulsa/home', function () {
+    return view('asesor_impulsa.interfaz-principal-impulsa');
+});
 
 Route::get('/login', function () {
     return view('auth.login');
 });
-Route::get('/impulsa/pagos', function () {
+Route::get('/academiaimpulsa/clientes/pagos', function () {
     return view('pagos_impulsa.pagos-impulsa');
 });
 Route::get('/registros', function () {

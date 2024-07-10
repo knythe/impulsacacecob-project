@@ -93,7 +93,8 @@
                                             </div>
                                             <div class="form-group col-sm-4">
                                                 <label for="telefono">Telefono del estudiante:</label>
-                                                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese numero de celular" maxlength="9" oninput="soloNumeros(this)" required>
+                                                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese numero de celular" maxlength="9" oninput="soloNumeros(this)">
+                                                <label for="telefono" class="center-text-label">*completar en caso sea necesario*</label>
                                             </div>
                                             <div class="form-group col-sm-4">
                                                 <label for="email">Email del estudiante:</label>

@@ -31,7 +31,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <!-- Imputs -->
-                                        <form action="{{ route('buscarPorDNI') }}" method="POST" class="w-100">
+                                        <form action="" method="POST" class="w-100">
                                             <div class="col-sm-12">
                                                 @csrf
                                                 <hr>
@@ -46,19 +46,19 @@
                                                 <div class="form-group row">
                                                     <div class="form-group col-sm-12">
                                                         <label for="datos_estudiante">Datos del estudiante:</label>
-                                                        <input type="text" class="form-control text-center" id="datos_estudiante" name="datos_estudiante" value="{{ $datos_estudiante->nombres ?? '' }} {{ $datos_estudiante->apellidos ?? '' }}" placeholder="" readonly>
+                                                        <input type="text" class="form-control text-center" id="datos_estudiante" name="datos_estudiante" value="" placeholder="" readonly>
                                                     </div>
                                                     <div class="form-group col-sm-12">
                                                         <label for="datos_apoderado">Datos del apoderado:</label>
-                                                        <input type="text" class="form-control text-center" id="datos_apoderado" name="datos_apoderado" value="{{ $datos_apoderado->nombres ?? '' }} {{ $datos_apoderado->apellidos ?? '' }}" placeholder="" readonly>
+                                                        <input type="text" class="form-control text-center" id="datos_apoderado" name="datos_apoderado" value="" placeholder="" readonly>
                                                     </div>
                                                     <div class="form-group col-sm-6">
                                                         <label for="contacto_apoderado">Contacto del apoderado:</label>
-                                                        <input type="text" class="form-control text-center" id="contacto_apoderado" name="contacto_apoderado" value="{{ $contacto_apoderado ?? '' }}" placeholder="" readonly>
+                                                        <input type="text" class="form-control text-center" id="contacto_apoderado" name="contacto_apoderado" value="" placeholder="" readonly>
                                                     </div>
                                                     <div class="form-group col-sm-6">
                                                         <label for="ciclo_contratado">Ciclo contratado:</label>
-                                                        <input type="text" class="form-control text-center" id="ciclo_contratado" name="ciclo_contratado" value="{{ $ciclo_contratado ?? '' }}" placeholder="" readonly>
+                                                        <input type="text" class="form-control text-center" id="ciclo_contratado" name="ciclo_contratado" value="" placeholder="" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -104,15 +104,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>{{$asesor}}</td>
-                                            <td>{{$datos_estudiante->nombres ?? '' }} {{ $datos_estudiante->apellidos ?? '' }}</td>
-                                            <td>{{$fecha_pago}}</td>
-                                            <td>{{$monto}}</td>
-                                            <td>{{$numero_operacion}}</td>
-                                            <td>{{$tipo_pago}}</td>
-                                            <td>{{$costo_ciclo}}</td>
-                                            <td></td>
-                                            <td></td>
+                                            
                                         </tr>
                                     </tbody>
                                 </table>

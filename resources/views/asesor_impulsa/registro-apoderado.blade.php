@@ -54,7 +54,7 @@
                     <ol class="breadcrumb mb-4">
 
                         <li class="breadcrumb-item"><a class="text-primary-impulsa">Registrar Apoderado</a></li>
-                        <li class="breadcrumb-item"><a class="text-primary-impulsa">Registrar Estudiante</a></li>
+                        <li class="breadcrumb-item">Registrar Estudiante</li>
                         <li class="breadcrumb-item">Registrar Comprobante</li>
                         <li class="breadcrumb-item">Registrar Venta</li>
 
@@ -107,7 +107,8 @@
                                             <div class="form-group row">
                                                 <div class="form-group col-sm-6">
                                                     <label for="telefono_secundario">Telefono sescundario del apoderado:</label>
-                                                    <input type="text" class="form-control" id="telefono_secundario" name="telefono_secundario" placeholder="Ingrese numero de celular secundario" maxlength="15" oninput="soloNumeros(this)" required>
+                                                    <input type="text" class="form-control" id="telefono_secundario" name="telefono_secundario" placeholder="Ingrese numero de celular secundario" maxlength="15" oninput="soloNumeros(this)">
+                                                    <label for="telefono_secundario" class="center-text-label">*completar en caso sea necesario*</label>
                                                 </div>
                                                 <div class="form-group col-sm-6">
                                                     <label for="email">Correo electronico:</label>

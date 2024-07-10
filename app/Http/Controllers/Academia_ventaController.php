@@ -6,6 +6,7 @@ use App\Http\Requests\storeAcademia_ventasRequest;
 use App\Models\Academia_ciclo;
 use App\Models\Academia_venta;
 use App\Models\Apoderado;
+use App\Models\area;
 use App\Models\Comprobante;
 use App\Models\Empleado;
 use App\Models\Estudiante;
@@ -28,7 +29,7 @@ class Academia_ventaController extends Controller
         //
         $academia_ventas = Academia_venta::get();
         //PAGOS
-        $ultimo_pago= pago::latest()->first();
+        $ultimo_pago = pago::latest()->first();
         $pago_id = $ultimo_pago ? $ultimo_pago->id : null;
 
         //usuarios
@@ -51,39 +52,17 @@ class Academia_ventaController extends Controller
         );
     }
 
-    public function asesorSales()
+    public function ventasAsesor()
     {
-        //
-        $academia_ventas = Academia_venta::get();
+        $ventasimpulsa = Academia_venta::get();
+        $empleados = empleado::get();
+        $estudiantes = Estudiante::get();
+       
 
-        $ventas = Academia_venta::with(['estudiante', 'empleado.usuario', 'apoderado'])->get();
-
-        $ventas_data = $ventas->map(function ($venta) {
-            return [
-                'nombre_estudiante' => $venta->estudiante->nombres . ' ' . $venta->estudiante->apellidos, // Concatenamos nombres y apellidos
-                'dni_estudiante' => $venta->estudiante->dni,
-                'telefono_estudiante' => $venta->estudiante->telefono,
-                'asesor' => $venta->empleado->usuario->user,
-                'sede' => $venta->estudiante->sede,
-                'sede_texto' => $venta->estudiante->sede_texto,
-                'nombre_apoderado' => $venta->apoderado->nombres . '' . $venta->apoderado->apellidos,
-                'parentesco' => $venta->apoderado->parentescos_texto,
-                'telefono_apoderado' => $venta->apoderado->telefono,
-                'estado_venta' => $venta->estado,
-
-            ];
-        });
-
-        return view(
-            'registros.registros-ventas-impulsa-asesor',
-            compact(
-                'academia_ventas',
-                'ventas_data'
-            )
-        );
+        return view('registros.registros-ventas-impulsa-asesor', ['ventasimpulsa' => $ventasimpulsa], compact('estudiantes','empleados'));
     }
 
-    
+
 
     /**
      * Show the form for creating a new resource.
