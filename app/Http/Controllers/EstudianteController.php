@@ -10,6 +10,7 @@ use App\Models\Apoderado;
 use App\Models\Comprobante;
 use App\Models\Empleado;
 use App\Models\Estudiante;
+use App\Models\pago;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,10 +36,51 @@ class EstudianteController extends Controller
     }
 
     // Esta funcion me permitira buscar a los estudiantes por DNI
-    public function buscarPorDNI()
-    {
-       return view('pagos_impulsa.pagos-impulsa');
+    public function busquedaEstudiante(Request $request)
+{
+    $dni = $request->input('dni');
+    $estudiante = Estudiante::where('dni', $dni)->first();
+
+    if ($estudiante) {
+        $academiaVenta = Academia_venta::where('estudiante_id', $estudiante->id)->first();
+        if ($academiaVenta) {
+            $ciclo = Academia_ciclo::find($academiaVenta->ciclo_id);
+            $empleado = Empleado::find($academiaVenta->empleado_id);
+            $pagos = Pago::where('estudiante_id', $estudiante->id)->get();
+
+            session([
+                'estudiante' => $estudiante,
+                'detalle_pago' => $pagos,
+                'ciclo_contratado' => $ciclo->nombre_ciclo,
+                'ciclo' => $ciclo,
+                'asesor' => $empleado->usuario->user,
+                'academiaventa' => $academiaVenta
+            ]);
+
+            if ($pagos->isEmpty()) {
+                session(['message' => 'No se encontraron pagos para el estudiante']);
+            } else {
+                session()->forget('message');
+            }
+
+            return view('pagos_impulsa.pagosprueba', [
+                'estudiante' => $estudiante,
+                'detalle_pago' => $pagos,
+                'ciclo_contratado' => $ciclo->nombre_ciclo,
+                'ciclo' => $ciclo,
+                'asesor' => $empleado->usuario->user,
+                'academiaventa' => $academiaVenta,
+                'message' => session('message')
+            ]);
+        } else {
+            session(['message' => 'No se encontraron ventas para el estudiante']);
+            return view('pagos_impulsa.pagosprueba', ['message' => 'No se encontraron ventas para el estudiante']);
+        }
+    } else {
+        return response()->json(['message' => 'Estudiante no encontrado'], 404);
     }
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -104,10 +146,9 @@ class EstudianteController extends Controller
     public function update(UpdateEstudiantesRequest $request, Estudiante $estudiante)
     {
         //
- dd($request);
-        {
+        dd($request); {
             //
-           
+
             try {
                 DB::beginTransaction();
                 $estudiante->update($request->validated());

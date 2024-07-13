@@ -41,7 +41,7 @@
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="/academiaimpulsa/clientes/pagos">
+        <a class="nav-link" href="/academiaimpulsa/buscar/estudiante">
             <i class="fas fa-hand-holding-usd"></i>
             <span>PAGOS</span>
         </a>

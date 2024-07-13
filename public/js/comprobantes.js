@@ -44,6 +44,34 @@ $(document).ready(function() {
         });
     });
 
+
+    $('#create_nuevo_comprobante').on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function(response) {
+               
+                    // Redirigir a la página de los registros hechos
+                    window.location.href = "/academiaimpulsa/clientes/pagos"; 
+                
+            },
+            error: function(error) {
+                console.error(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'APODERADO EXISTENTE.',
+                });
+            }
+        });
+    });
+
+
+
+
+
     // Editar apoderado tipo class
     $('.edit_comprobante').on('submit', function(e) {
         e.preventDefault();

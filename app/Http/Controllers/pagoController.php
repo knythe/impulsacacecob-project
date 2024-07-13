@@ -20,23 +20,31 @@ class pagoController extends Controller
      */
     public function index()
     {
-        //datos del ultimo apoderado y estudiante
-        $ultimo_estudiante = estudiante::latest()->first();
+        // Datos del último apoderado y estudiante
+        $ultimo_estudiante = Estudiante::latest()->first();
         $estudiante_id = $ultimo_estudiante ? $ultimo_estudiante->id : null;
-        //datos del ultimo comprobante
-        $ultimo_comprobante = comprobante::latest()->first();
+
+        // Datos del último comprobante
+        $ultimo_comprobante = Comprobante::latest()->first();
         $comprobante_id = $ultimo_comprobante ? $ultimo_comprobante->id : null;
 
+        // Almacenar datos en la sesión
+        session([
+            'ultimo_estudiante' => $ultimo_estudiante,
+            'estudiante_id' => $estudiante_id,
+            'ultimo_comprobante' => $ultimo_comprobante,
+            'comprobante_id' => $comprobante_id
+        ]);
 
-        return view ('asesor_impulsa.registro-pago-impulsa',compact(
+        return view('asesor_impulsa.registro-pago-impulsa', compact(
             'ultimo_estudiante',
             'estudiante_id',
             'ultimo_comprobante',
             'comprobante_id'
-
         ));
     }
-    
+
+
 
     /**
      * Show the form for creating a new resource.

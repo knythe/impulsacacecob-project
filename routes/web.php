@@ -73,7 +73,7 @@ Route::get('/academiaimpulsa/clientes/registros', [Academia_ventaController::cla
 
 
 
-Route::get('/buscar-estudiante', [EstudianteController::class, 'buscarPorDNI'])->name('buscarPorDNI');
+Route::post('/academiaimpulsa/buscar/estudiante/informacion/pagos', [EstudianteController::class, 'busquedaEstudiante'])->name('busquedaEstudiante');
 
 
 
@@ -85,9 +85,22 @@ Route::get('/academiaimpulsa/home', function () {
 Route::get('/login', function () {
     return view('auth.login');
 });
+
+Route::get('/academiaimpulsa/estudiante/registrar/comprobante', function () {
+    return view('pagos_impulsa.registrar-nuevo-comprobante');
+});
+
 Route::get('/academiaimpulsa/clientes/pagos', function () {
     return view('pagos_impulsa.pagos-impulsa');
 });
+
+//
+Route::get('/academiaimpulsa/buscar/estudiante', function () {
+    return view('pagos_impulsa.busqueda-estudiantes');
+});
+
+
+
 Route::get('/registros', function () {
     return view('registros.registros-impulsa');
 });

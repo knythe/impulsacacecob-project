@@ -34,7 +34,7 @@ class ComprobanteController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
