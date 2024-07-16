@@ -57,100 +57,95 @@
                         <li class="breadcrumb-item"><a class="text-primary-impulsa">Registrar Comprobante</a></li>
                         <li class="breadcrumb-item">Registrar Venta</li>
                     </ol>
+                </div>
 
-                    <div class="card o-hidden border-0 shadow-lg my-5">
-                        <div class="card-body p-0">
-                            <!-- Nested Row within Card Body -->
-                            <div class="col-lg-12">
-                                <div class="p-5">
-                                    <form action="{{ route('pago.store') }}" id="create_pago" method="post">
-                                        @csrf
-                                        <!-- DATOS DE INSCRIPCION -->
-                                        <h1 class="h4 text-gray-900 mb-1 text-center">DETALLES DE PAGO</h1>
-                                        <hr>
-                                        <div class="form-group">
-                                            <div class="form-group row">
-                                                <div class="form-group col-sm-6">
-                                                    <label for="codigo_operacion">Codigo de operacion:</label>
-                                                    <input type="text" class="form-control" id="codigo_operacion" name="codigo_operacion" placeholder="Ingrese codigo de operacion" value="{{$ultimo_comprobante->codigo_operacion}}" readonly>
-                                                </div>
-                                                <div class="form-group col-sm-5">
-                                                    <label for="numero_comprobante">Numero de comprobante:</label>
-                                                    <input type="text" class="form-control" id="numero_comprobante" name="numero_comprobante" placeholder="Ingrese el numero de comprobante" value="{{$ultimo_comprobante->numero_comprobante}}" readonly>
+                <div class="container-impulsa">
 
-                                                </div>
-                                                <div class="form-group col-sm-1 mb-3 mb-sm-0" role="group" aria-label="Basic mixed styles example">
-                                                    <hr>
-                                                    <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#editModalComprobante-{{$ultimo_comprobante->id}}" title="Editar"><i class="fas fa-edit"></i></button>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="form-group col-sm-4">
-                                                    <label for="tipo_pago">Tipo de pago:</label>
-                                                    <input type="text" class="form-control" id="numero_comprobante" name="numero_comprobante" placeholder="Ingrese el numero de comprobante" value="{{$ultimo_comprobante->tipo_pago}}" readonly>
-                                                </div>
-                                                <div class="form-group col-sm-4">
-                                                    <label for="fecha_pago">Fecha de pago:</label>
-                                                    <input type="date" class="form-control" id="fecha_pago" name="fecha_pago" value="{{$ultimo_comprobante->fecha_pago}}" readonly>
-                                                </div>
-                                                <div class="form-group col-sm-4">
-                                                    <label for="monto">Monto cancelado:</label>
-                                                    <input type="number" class="form-control" id="monto" name="monto" placeholder="Ingrese monto cancelado" step="0.01" min="0" maxlength="3" value="{{$ultimo_comprobante->monto}}" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="form-group col-sm-12 mb-3 mb-sm-0">
-                                                    <label for="observaciones">Observaciones:</label>
-                                                    <textarea class="form-control" name="observaciones" id="observaciones" title="Solo alfanumericos" placeholder="Ingresa observaciones" readonly>{{$ultimo_comprobante->observaciones}}</textarea>
-                                                </div>
-
-                                                <hr>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="form-group col-sm-12 mb-3 mb-sm-0">
-                                                    <label for="apoderado_id">Datos del apoderado:</label>
-                                                    <input type="text" class="form-control" id="apoderado" name="apoderado" placeholder="Ingrese nombres del apoderado" value="{{ $ultimo_estudiante->apoderado->nombres ?? ''}} {{ $ultimo_estudiante->apoderado->apellidos ?? ''}}" readonly>
-                                                    <input type="hidden" id="comprobante_id" name="comprobante_id" value="{{ $comprobante_id }}">
-                                                </div>
-
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="form-group col-sm-11 mb-3 mb-sm-0">
-                                                    <label for="estudiante_id">Datos del estudiante:</label>
-                                                    <input type="text" class="form-control" id="estudiante" name="estudiante" placeholder="Ingrese nombres del apoderado" value="{{ $ultimo_estudiante->nombres }} {{ $ultimo_estudiante->apellidos }}" readonly>
-                                                    <input type="hidden" id="estudiante_id" name="estudiante_id" value="{{ $estudiante_id }}">
-                                                </div>
-                                                <div class="form-group col-sm-1 mb-3 mb-sm-0" role="group" aria-label="Basic mixed styles example">
-                                                    <hr>
-                                                    <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#editModalEstudiante-{{$ultimo_estudiante->id}}" title="Editar"><i class="fas fa-edit"></i></button>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="form-group row">
-                                                <div class="form-group col-sm-4">
-                                                </div>
-                                                <div class="form-group col-sm-4">
-                                                </div>
-                                                <div class="form-group col-sm-4">
-                                                    <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos w-100" title="Siguiente">Siguiente</button>
-                                                    
-                                                </div>
-                                            </div>
-                                            <!-- END DATOS DE INSCRIPCION-->
-
-
-
-
-                                    </form>
-                                    <hr>
-
-
-                                </div>
-                            </div>
-                        </div>
+                    <div class="image-containerimpulsa">
+                        <img src="{{ asset('img/fondo-detalle-pago.jpg') }}" alt="Logo Impulsa">
                     </div>
 
+                    <div class="form-container-impulsa">
+                        <form action="{{ route('pago.store') }}" id="create_pago" method="post">
+                            @csrf
+                            <!-- DATOS DE INSCRIPCION -->
+                            <h1 class="h4 text-gray-900 mb-1 text-center">DETALLES DE PAGO</h1>
+                            <hr>
+                            <div class="form-group">
+                                <div class="form-group row">
+                                    <div class="form-group col-sm-5">
+                                        <label for="codigo_operacion">Codigo de operacion:</label>
+                                        <input type="text" class="form-control" id="codigo_operacion" name="codigo_operacion" placeholder="Ingrese codigo de operacion" value="{{$ultimo_comprobante->codigo_operacion}}" readonly>
+                                    </div>
+                                    <div class="form-group col-sm-5">
+                                        <label for="numero_comprobante">Numero de comprobante:</label>
+                                        <input type="text" class="form-control" id="numero_comprobante" name="numero_comprobante" placeholder="Ingrese el numero de comprobante" value="{{$ultimo_comprobante->numero_comprobante}}" readonly>
+
+                                    </div>
+                                    <div class="form-group col-sm-2 mb-3 mb-sm-0" role="group" aria-label="Basic mixed styles example">
+                                        <hr>
+                                        <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#editModalComprobante-{{$ultimo_comprobante->id}}" title="Editar"><i class="fas fa-edit"></i></button>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="form-group col-sm-6">
+                                        <label for="tipo_pago">Tipo de pago:</label>
+                                        <input type="text" class="form-control" id="numero_comprobante" name="numero_comprobante" placeholder="Ingrese el numero de comprobante" value="{{$ultimo_comprobante->tipo_pago}}" readonly>
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label for="fecha_pago">Fecha de pago:</label>
+                                        <input type="date" class="form-control" id="fecha_pago" name="fecha_pago" value="{{$ultimo_comprobante->fecha_pago}}" readonly>
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label for="monto">Monto cancelado:</label>
+                                        <input type="number" class="form-control" id="monto" name="monto" placeholder="Ingrese monto cancelado" step="0.01" min="0" maxlength="3" value="{{$ultimo_comprobante->monto}}" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="form-group col-sm-12 mb-3 mb-sm-0">
+                                        <label for="observaciones">Observaciones:</label>
+                                        <textarea class="form-control" name="observaciones" id="observaciones" title="Solo alfanumericos" placeholder="Ingresa observaciones" readonly>{{$ultimo_comprobante->observaciones}}</textarea>
+                                    </div>
+
+                                    <hr>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="form-group col-sm-12 mb-3 mb-sm-0">
+                                        <label for="apoderado_id">Datos del apoderado:</label>
+                                        <input type="text" class="form-control" id="apoderado" name="apoderado" placeholder="Ingrese nombres del apoderado" value="{{ $ultimo_estudiante->apoderado->nombres ?? ''}} {{ $ultimo_estudiante->apoderado->apellidos ?? ''}}" readonly>
+                                        <input type="hidden" id="comprobante_id" name="comprobante_id" value="{{ $comprobante_id }}">
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <div class="form-group col-sm-10 mb-3 mb-sm-0">
+                                        <label for="estudiante_id">Datos del estudiante:</label>
+                                        <input type="text" class="form-control" id="estudiante" name="estudiante" placeholder="Ingrese nombres del apoderado" value="{{ $ultimo_estudiante->nombres }} {{ $ultimo_estudiante->apellidos }}" readonly>
+                                        <input type="hidden" id="estudiante_id" name="estudiante_id" value="{{ $estudiante_id }}">
+                                    </div>
+                                    <div class="form-group col-sm-2 mb-3 mb-sm-0" role="group" aria-label="Basic mixed styles example">
+                                        <hr>
+                                        <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#editModalEstudiante-{{$ultimo_estudiante->id}}" title="Editar"><i class="fas fa-edit"></i></button>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="form-group col-sm-4">
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos w-100" title="Siguiente">Siguiente</button>
+
+                                    </div>
+                                </div>
+                                <!-- END DATOS DE INSCRIPCION-->
+                        </form>
+                    </div>
                 </div>
+
+
+
 
                 <!-- /.container-fluid -->
 
@@ -191,11 +186,11 @@
                                 <div class="form-group col-sm-12">
                                     <label for="codigo_operacion">Codigo de operacion:</label>
                                     <input type="text" class="form-control" id="codigo_operacion" name="codigo_operacion" placeholder="Ingrese codigo de operacion" oninput="soloLetrasNumerosCaracteres(this)" value="{{$ultimo_comprobante->codigo_operacion}}" required>
+                                    <label for="email" class="center-text-label">*es valido usar el mismo numero de comprobante*</label>
                                 </div>
                                 <div class="form-group col-sm-12">
                                     <label for="numero_comprobante">Numero de comprobante:</label>
                                     <input type="text" class="form-control" id="numero_comprobante" name="numero_comprobante" placeholder="Ingrese el numero de comprobante" oninput="soloLetrasNumerosCaracteres(this)" value="{{$ultimo_comprobante->numero_comprobante}}" required>
-                                    <label for="email" class="center-text-label">*es valido usar el mismo codigo de operacion*</label>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -236,12 +231,12 @@
                                 <hr>
                             </div>
                             <div class="form-group row">
-                                <div class="form-group col-sm-4">
+
+                                <div class="form-group col-sm-6">
+                                    <button type="reset" class="btn btn-secondary btn-ciclos w-100">Cancelar</button>
                                 </div>
-                                <div class="form-group col-sm-4">
-                                </div>
-                                <div class="form-group col-sm-4">
-                                    <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos w-100" title="Siguiente">Siguiente</button>
+                                <div class="form-group col-sm-6">
+                                    <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos w-100" title="Siguiente">Actualizar</button>
                                 </div>
                             </div>
                         </div>
@@ -326,9 +321,10 @@
                             <div class="form-group col-sm-4">
                             </div>
                             <div class="form-group col-sm-4">
+                                <button type="reset" class="btn btn-secondary btn-ciclos w-100">Cancelar</button>
                             </div>
                             <div class="form-group col-sm-4">
-                                <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos w-100" title="Siguiente">Siguiente</button>
+                                <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos w-100" title="Siguiente">Actualizar</button>
                             </div>
                         </div>
 

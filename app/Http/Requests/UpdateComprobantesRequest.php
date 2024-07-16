@@ -28,7 +28,7 @@ class UpdateComprobantesRequest extends FormRequest
         return [
             'codigo_operacion' => 'required|max:301|unique:comprobantes,codigo_operacion,'.$comprobanteid,
             'numero_comprobante'=>'required|max:250',
-            'tipo_pago' => 'required|max:20',
+            'tipo_pago' => 'required|max:80',
             'fecha_pago' => 'required|date',
             'monto' => 'required|numeric|min:0',
             'observaciones'=>'required|max:250',

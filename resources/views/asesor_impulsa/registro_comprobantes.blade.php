@@ -57,83 +57,81 @@
                         <li class="breadcrumb-item"><a class="text-primary-impulsa">Registrar Comprobante</a></li>
                         <li class="breadcrumb-item">Registrar Venta</li>
                     </ol>
+                </div>
+                <div class="container-impulsa">
 
-                    <div class="card o-hidden border-0 shadow-lg my-5">
-                        <div class="card-body p-0">
-                            <!-- Nested Row within Card Body -->
-                            <div class="col-lg-12">
-                                <div class="p-5">
-                                    <form action="{{ route('comprobantes.store') }}" id="create_comprobante" method="post">
-                                        @csrf
-                                        <!-- DATOS DE INSCRIPCION -->
-                                        <h1 class="h4 text-gray-900 mb-1 text-center">DATOS DE COMPROBANTE</h1>
-                                        <hr>
-                                        <div class="form-group">
-                                            <div class="form-group row">
-                                                <div class="form-group col-sm-6">
-                                                    <label for="codigo_operacion">Codigo de operacion:</label>
-                                                    <input type="text" class="form-control" id="codigo_operacion" name="codigo_operacion" placeholder="Ingrese codigo de operacion" oninput="soloLetrasNumerosCaracteres(this)" required>
-                                                </div>
-                                                <div class="form-group col-sm-6">
-                                                    <label for="numero_comprobante">Numero de comprobante:</label>
-                                                    <input type="text" class="form-control" id="numero_comprobante" name="numero_comprobante" placeholder="Ingrese el numero de comprobante" oninput="soloLetrasNumerosCaracteres(this)" required>
-                                                    <label for="email" class="center-text-label">*es valido usar el mismo codigo de operacion*</label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="form-group col-sm-4">
-                                                    <label for="tipo_pago">Tipo de pago:</label>
-                                                    <select class="form-control" id="tipo_pago" name="tipo_pago" required>
-                                                        <option value="" class="text-center">- Seleccionar -</option>
-                                                        <option value="YAPE" class="text-center">YAPE</option>
-                                                        <option value="PLIN" class="text-center">PLIN</option>
-                                                        <option value="Transferencia BCP" class="text-center">Transferencia BCP</option>
-                                                        <option value="Transferencia INTERBANK" class="text-center">Transferencia INTERBANK"</option>
-                                                        <option value="Transferencia CCI CAJA PIURA" class="text-center">Transferencia CCI CAJA PIURA</option>
-                                                        <option value="Transferencia Banco de la Nacion" class="text-center">Transferencia Banco de la Nacion</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-sm-4">
-                                                    <label for="fecha_pago">Fecha de pago:</label>
-                                                    <input type="date" class="form-control" id="fecha_pago" name="fecha_pago" placeholder="Celular" required>
-                                                </div>
-                                                <div class="form-group col-sm-4">
-                                                    <label for="monto">Monto cancelado:</label>
-                                                    <input type="number" class="form-control" id="monto" name="monto" placeholder="Ingrese monto cancelado" step="0.01" min="0" maxlength="3" required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="form-group col-sm-12 mb-3 mb-sm-0">
-                                                    <label for="observaciones">Observaciones:</label>
-                                                    <textarea class="form-control" name="observaciones" id="observaciones" title="Solo alfanumericos" placeholder="Ingresa observaciones" oninput="soloLetrasNumerosCaracteres(this)" required></textarea>
-                                                </div>
-
-                                                <hr>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="form-group col-sm-4">
-                                                </div>
-                                                <div class="form-group col-sm-4">
-                                                </div>
-                                                <div class="form-group col-sm-4">
-                                                    <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos w-100" title="Siguiente">Siguiente</button>
-                                                </div>
-                                            </div>
-                                            <!-- END DATOS DE INSCRIPCION-->
-                                        </div>
-
-
-
-                                    </form>
-                                    <hr>
-
-
-                                </div>
-                            </div>
-                        </div>
+                    <div class="image-containerimpulsa">
+                        <img src="{{ asset('img/fondo-comprobante.jpg') }}" alt="Logo Impulsa">
                     </div>
 
+                    <div class="form-container-impulsa">
+                        <form action="{{ route('comprobantes.store') }}" id="create_comprobante" method="post">
+                            @csrf
+                            <!-- DATOS DE INSCRIPCION -->
+                            <h1 class="h4 text-gray-900 mb-1 text-center">DATOS DE COMPROBANTE</h1>
+                            <hr>
+                            <div class="form-group">
+                                <div class="form-group row">
+                                    <div class="form-group col-sm-6">
+                                        <label for="codigo_operacion">Codigo de operacion:</label>
+                                        <input type="text" class="form-control" id="codigo_operacion" name="codigo_operacion" placeholder="Ingrese codigo de operacion" oninput="soloLetrasNumerosCaracteres(this)" required>
+                                        <label for="email" class="center-text-label">*usar el numero de comprobante*</label>
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label for="numero_comprobante">Numero de comprobante:</label>
+                                        <input type="text" class="form-control" id="numero_comprobante" name="numero_comprobante" placeholder="Ingrese el numero de comprobante" oninput="soloLetrasNumerosCaracteres(this)" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="form-group col-sm-6">
+                                        <label for="tipo_pago">Tipo de pago:</label>
+                                        <select class="form-control" id="tipo_pago" name="tipo_pago" required>
+                                            <option value="" class="text-center">- Seleccionar -</option>
+                                            <option value="YAPE" class="text-center">YAPE</option>
+                                            <option value="PLIN" class="text-center">PLIN</option>
+                                            <option value="Transferencia BCP" class="text-center">Transferencia BCP</option>
+                                            <option value="Transferencia INTERBANK" class="text-center">Transferencia INTERBANK</option>
+                                            <option value="Transferencia CCI CAJA PIURA" class="text-center">Transferencia CCI CAJA PIURA</option>
+                                            <option value="Transferencia Banco de la Nacion" class="text-center">Transferencia Banco de la Nacion</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label for="fecha_pago">Fecha de pago:</label>
+                                        <input type="date" class="form-control" id="fecha_pago" name="fecha_pago" placeholder="Celular" required>
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label for="monto">Monto cancelado:</label>
+                                        <input type="number" class="form-control" id="monto" name="monto" placeholder="S/." step="0.01" min="0" maxlength="3" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="form-group col-sm-12 mb-3 mb-sm-0">
+                                        <label for="observaciones">Observaciones:</label>
+                                        <textarea class="form-control" name="observaciones" id="observaciones" title="Solo alfanumericos" placeholder="Ingresa observaciones" oninput="soloLetrasNumerosCaracteres(this)" required></textarea>
+                                    </div>
+
+                                    <hr>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="form-group col-sm-4">
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos w-100" title="Siguiente">Siguiente</button>
+                                    </div>
+                                </div>
+                                <!-- END DATOS DE INSCRIPCION-->
+                            </div>
+
+
+
+                        </form>
+                    </div>
                 </div>
+
+
+
 
                 <!-- /.container-fluid -->
 

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('codigo_operacion', 30); // completar solo si se genero una transferencia
             $table->string('numero_comprobante'); 
-            $table->string('tipo_pago', 20); //metodo de pago en la view
+            $table->string('tipo_pago', 80); //metodo de pago en la view
             $table->date('fecha_pago'); 
             $table->decimal('monto', 10, 0);
             $table->string('observaciones', 250);

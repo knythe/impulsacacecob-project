@@ -54,7 +54,7 @@ $(document).ready(function() {
             success: function(response) {
                
                     // Redirigir a la página de los registros hechos
-                    window.location.href = "/academiaimpulsa/clientes/pagos"; 
+                    window.location.href = "/academiaimpulsa/estudiante/registrar/comprobante/detalle/pago"; 
                 
             },
             error: function(error) {
@@ -63,6 +63,29 @@ $(document).ready(function() {
                     icon: 'error',
                     title: 'Error',
                     text: 'APODERADO EXISTENTE.',
+                });
+            }
+        });
+    });
+
+    $('#create_nuevo_comprobante_reinscripcion').on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function(response) {
+               
+                    // Redirigir a la página de los registros hechos
+                    window.location.href = "/academiaimpulsa/buscar/estudiante/nuevo/comprobante/detalle/pago"; 
+                
+            },
+            error: function(error) {
+                console.error(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'COMPROBANTE EXISTENTE.',
                 });
             }
         });

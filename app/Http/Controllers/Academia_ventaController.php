@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\storeAcademia_ventasRequest;
+use App\Http\Requests\UpdateAcademia_ventasRequest;
 use App\Models\Academia_ciclo;
 use App\Models\Academia_venta;
 use App\Models\Apoderado;
@@ -13,6 +14,7 @@ use App\Models\Estudiante;
 use App\Models\pago;
 use App\Models\Role;
 use App\Models\Usuario;
+use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,6 +34,7 @@ class Academia_ventaController extends Controller
         $ultimo_pago = pago::latest()->first();
         $pago_id = $ultimo_pago ? $ultimo_pago->id : null;
 
+
         //usuarios
         $usuarios = Usuario::where('estado', 1)->get();
         //ciclos
@@ -47,19 +50,64 @@ class Academia_ventaController extends Controller
                 'pago_id',
                 'empleados',
                 'ciclos',
-                'ultimo_pago'
+                'ultimo_pago',
+
             )
         );
     }
+
+    public function registrarventareincripcion()
+    {
+        //
+        $academia_ventas = Academia_venta::get();
+        //PAGOS
+        $ultimo_pago = pago::latest()->first();
+        $pago_id = $ultimo_pago ? $ultimo_pago->id : null;
+
+
+        //usuarios
+        $usuarios = Usuario::where('estado', 1)->get();
+        //ciclos
+        $ciclos = Academia_ciclo::where('estado', 1)->get();
+        //empleados
+        $empleados = Empleado::where('estado', 1)->with('usuario')->get();
+
+
+        return view(
+            'asesor_impulsa.registro-ventas-impulsa-reinscripcion',
+            compact(
+                'academia_ventas',
+                'pago_id',
+                'empleados',
+                'ciclos',
+                'ultimo_pago',
+
+            )
+        );
+    }
+
+
+
+
 
     public function ventasAsesor()
     {
         $ventasimpulsa = Academia_venta::get();
         $empleados = empleado::get();
         $estudiantes = Estudiante::get();
-       
 
-        return view('registros.registros-ventas-impulsa-asesor', ['ventasimpulsa' => $ventasimpulsa], compact('estudiantes','empleados'));
+
+        return view('registros.registros-ventas-impulsa-asesor', ['ventasimpulsa' => $ventasimpulsa], compact('estudiantes', 'empleados'));
+    }
+
+    public function ventasAsesorAdministrador()
+    {
+        $ventasimpulsa = Academia_venta::get();
+        $empleados = empleado::get();
+        $estudiantes = Estudiante::get();
+
+
+        return view('registros.registros-impulsa', ['ventasimpulsa' => $ventasimpulsa], compact('estudiantes', 'empleados'));
     }
 
 
@@ -124,10 +172,20 @@ class Academia_ventaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateAcademia_ventasRequest $request, Academia_venta $academia_venta)
     {
-        //
+
+        try {
+            DB::beginTransaction();
+            $academia_venta->update($request->validated());
+            DB::commit();
+            return response()->json(['success' => 'Venta actualizada correctamente', 'academia_venta' => $academia_venta], 200);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return response()->json(['error' => 'No se pudo actualizar la venta. Por favor, inténtelo de nuevo.'], 500);
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -138,5 +196,47 @@ class Academia_ventaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function dashboard()
+    {
+        // Consulta para obtener las ventas por mes
+        $ventasPorMes = DB::table('academia_ventas')
+            ->select(DB::raw('MONTH(fecha_registro) as mes'), DB::raw('COUNT(estudiante_id) as total_ventas'))
+            ->groupBy('mes')
+            ->orderBy('mes')
+            ->get();
+
+        // Consulta para obtener las ventas por estado para el mes actual
+        $mesActual = date('m');
+        $ventasPorEstado = DB::table('academia_ventas')
+            ->select('estado', DB::raw('COUNT(*) as total'))
+            ->whereMonth('fecha_registro', $mesActual)
+            ->groupBy('estado')
+            ->get();
+
+        // Mapeo de estados
+        $estadosMap = [
+            1 => 'DEUDORES',
+            2 => 'PAGADOS',
+            3 => 'RETIRADOS',
+            4 => 'RESERVADOS'
+        ];
+
+        // Transformar datos para el gráfico de línea (ventas por mes)
+        $ventasPorMes->transform(function ($venta) {
+            $venta->mes = DateTime::createFromFormat('!m', $venta->mes)->format('F');
+            return $venta;
+        });
+
+        // Transformar datos para el gráfico de pastel (ventas por estado)
+        $ventasPorEstado->transform(function ($venta) use ($estadosMap) {
+            $venta->estado = $estadosMap[$venta->estado];
+            return $venta;
+        });
+        $nombreMesActual = DateTime::createFromFormat('!m', $mesActual)->format('F');
+
+
+        return view('panel.index', compact('ventasPorMes', 'ventasPorEstado', 'mesActual','nombreMesActual'));
     }
 }

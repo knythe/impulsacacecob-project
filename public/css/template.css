@@ -47,6 +47,7 @@
     width: 95%;
     
     padding: 20px;
+    padding-left: 80px;
     
     align-self: center;
     
@@ -2458,6 +2459,12 @@
     color: #fff;
     background-color: #0245A0;
     border-color: #0245A0;
+    float: right;
+  }
+  .btn-primary-asesor-cacecob {
+    color: #fff;
+    background-color: #9F1423;
+    border-color: #9F1423;
     float: right;
   }
 

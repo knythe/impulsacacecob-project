@@ -37,49 +37,96 @@ class EstudianteController extends Controller
 
     // Esta funcion me permitira buscar a los estudiantes por DNI
     public function busquedaEstudiante(Request $request)
-{
-    $dni = $request->input('dni');
-    $estudiante = Estudiante::where('dni', $dni)->first();
+    {
+        $dni = $request->input('dni');
+        $estudiante = Estudiante::where('dni', $dni)->first();
 
-    if ($estudiante) {
-        $academiaVenta = Academia_venta::where('estudiante_id', $estudiante->id)->first();
-        if ($academiaVenta) {
-            $ciclo = Academia_ciclo::find($academiaVenta->ciclo_id);
-            $empleado = Empleado::find($academiaVenta->empleado_id);
-            $pagos = Pago::where('estudiante_id', $estudiante->id)->get();
+        if ($estudiante) {
+            $academiaVenta = Academia_venta::where('estudiante_id', $estudiante->id)->first();
+            if ($academiaVenta) {
+                $ciclo = Academia_ciclo::find($academiaVenta->ciclo_id);
+                $empleado = Empleado::find($academiaVenta->empleado_id);
+                $pagos = Pago::where('estudiante_id', $estudiante->id)->get();
 
-            session([
-                'estudiante' => $estudiante,
-                'detalle_pago' => $pagos,
-                'ciclo_contratado' => $ciclo->nombre_ciclo,
-                'ciclo' => $ciclo,
-                'asesor' => $empleado->usuario->user,
-                'academiaventa' => $academiaVenta
-            ]);
+                session([
+                    'estudiante' => $estudiante,
+                    'detalle_pago' => $pagos,
+                    'ciclo_contratado' => $ciclo->nombre_ciclo,
+                    'ciclo' => $ciclo,
+                    'asesor' => $empleado->usuario->user,
+                    'academiaventa' => $academiaVenta
+                ]);
 
-            if ($pagos->isEmpty()) {
-                session(['message' => 'No se encontraron pagos para el estudiante']);
+                if ($pagos->isEmpty()) {
+                    session(['message' => 'No se encontraron pagos para el estudiante']);
+                } else {
+                    session()->forget('message');
+                }
+
+                return view('pagos_impulsa.pagos-impulsa', [
+                    'estudiante' => $estudiante,
+                    'detalle_pago' => $pagos,
+                    'ciclo_contratado' => $ciclo->nombre_ciclo,
+                    'ciclo' => $ciclo,
+                    'asesor' => $empleado->usuario->user,
+                    'academiaventa' => $academiaVenta,
+                    'message' => session('message')
+                ]);
             } else {
-                session()->forget('message');
+                session(['message' => 'No se encontraron ventas para el estudiante']);
+                return view('pagos_impulsa.pagos-impulsa', ['message' => 'No se encontraron ventas para el estudiante']);
             }
-
-            return view('pagos_impulsa.pagosprueba', [
-                'estudiante' => $estudiante,
-                'detalle_pago' => $pagos,
-                'ciclo_contratado' => $ciclo->nombre_ciclo,
-                'ciclo' => $ciclo,
-                'asesor' => $empleado->usuario->user,
-                'academiaventa' => $academiaVenta,
-                'message' => session('message')
-            ]);
         } else {
-            session(['message' => 'No se encontraron ventas para el estudiante']);
-            return view('pagos_impulsa.pagosprueba', ['message' => 'No se encontraron ventas para el estudiante']);
+            return response()->json(['message' => 'Estudiante no encontrado'], 404);
         }
-    } else {
-        return response()->json(['message' => 'Estudiante no encontrado'], 404);
     }
-}
+
+
+    /*public function buscarEstudiante(Request $request){
+        $dni = $request->input('dni');
+
+        // Validar el input
+        if (!$dni) {
+            return redirect()->back()->with('error', 'DNI es requerido');
+        }
+
+        // Buscar el estudiante por su DNI
+        $estudiante = Estudiante::where('dni', $dni)->first();
+
+        // Verificar si se encontró el estudiante
+        if (!$estudiante) {
+            return redirect()->back()->with('error', 'Estudiante no encontrado');
+        }
+
+        // Pasar la información del estudiante a la vista
+        return view('asesor_impulsa.busqueda-estudiante-reinscripcion', compact('estudiante'));
+    
+
+    }*/
+
+    public function buscarEstudiante(Request $request) {
+        $dni = $request->input('dni');
+    
+        // Validar el input
+        if (!$dni) {
+            return redirect()->back()->with('error', 'DNI es requerido');
+        }
+    
+        // Buscar el estudiante por su DNI
+        $estudiante = Estudiante::where('dni', $dni)->first();
+    
+        // Verificar si se encontró el estudiante
+        if (!$estudiante) {
+            return redirect()->back()->with('error', 'Estudiante no encontrado');
+        }
+    
+        // Guardar la información del estudiante en la sesión
+        session(['estudiantereinscribir' => $estudiante]);
+    
+        // Pasar la información del estudiante a la vista
+        return view('asesor_impulsa.busqueda-estudiante-reinscripcion', compact('estudiante'));
+    }
+    
 
 
     /**
@@ -146,7 +193,7 @@ class EstudianteController extends Controller
     public function update(UpdateEstudiantesRequest $request, Estudiante $estudiante)
     {
         //
-        dd($request); {
+        {
             //
 
             try {

@@ -21,10 +21,21 @@ class UpdateAcademia_ventasRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
-    {
-        return [
-            //
-        ];
-    }
+    public function rules(): array
+{
+    $academia_venta = $this->route('academia_venta');
+    $academia_ventaid = $academia_venta->id;
+    return [
+        'estudiante_id' => 'nullable',
+        'pago_id' => 'nullable',
+        'ciclo_id' => 'nullable',
+        'empleado_id' => 'nullable',
+        'cant_material' => 'nullable',
+        'prenda' => 'nullable',
+        'fecha-registro' => 'nullable',
+        'estado' => 'nullable'
+    ];
+}
+
+    
 }

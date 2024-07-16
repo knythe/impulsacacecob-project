@@ -12,8 +12,11 @@
     <title>Registros de ventas - Academia Impulsa</title>
     <link rel="website icon" type="png" href="{{asset ('img/logo-impulsa.png')}}">
     <!-- Bstrap Css-->
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!--END ALERTA-->
+    <!-- Bstrap Css-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
 
     <!-- Custom fonts for this template -->
     <link href="{{asset ('assets/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -63,14 +66,12 @@
                                     <thead>
                                         <tr>
                                             <th>ASESOR</th>
-                                            <th>Nombres del estudiante</th>
-                                            <th>DNI del estudiante</th>
-                                            <th>Telefono del estudiante</th>
+                                            <th>Datos del estudiante</th>
                                             <th>Sede</th>
-                                            <th>Nombres del apoderado</th>
-                                            <th>Parentesco con el estudiante</th>
-                                            <th>Telefono del apoderado</th>
+                                            <th>Datos del apoderado</th>
                                             <th>Estado de venta</th>
+                                            <th>Material</th>
+                                            <th>Vestimenta</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -79,34 +80,22 @@
                                         <tr>
                                             <td>
                                                 <span class="fw-bolder p-1 rounded bg-warning text-black d-flex justify-content-center align-items-center"> {{$venta->empleado->usuario->user}}</span>
+                                                <p class="text-center">Venta: {{\Carbon\Carbon::parse($venta->fecha_registro)->format('d-m-Y')}}</p>
                                             </td>
                                             <td>
-                                                {{ $venta->estudiante->nombres ?? '' }} {{$venta->estudiante->apellidos ?? ''}}
-                                            </td>
-                                            <td>
-                                                {{$venta->estudiante->dni}}
-                                            </td>
-                                            <td>
-                                                {{ $venta->estudiante->telefono ?? 'S/N' }}
-
+                                                <p class="fw-semibold mb-1">{{ $venta->estudiante->nombres ?? '' }} {{$venta->estudiante->apellidos ?? ''}}</p>
+                                                <p class="text-muted mb-0">DNI: {{ $venta->estudiante->dni ?? '' }}</p>
+                                                <p class="text-muted mb-0">Telefono: {{ $venta->estudiante->telefono ?? 'S/N' }}</p>
                                             </td>
                                             <td>
                                                 {{$venta->estudiante->sede}}
                                             </td>
                                             <td>
-                                                {{$venta->estudiante->apoderado->nombres ?? ''}} {{$venta->estudiante->apoderado->apellidos ?? ''}}
-
+                                                <p class="fw-semibold mb-1">{{$venta->estudiante->apoderado->nombres ?? ''}} {{$venta->estudiante->apoderado->apellidos ?? ''}}</p>
+                                                <p class="text-muted mb-0">Telefono: {{$venta->estudiante->apoderado->telefono}}</p>
                                             </td>
-                                            <td>
-                                                {{$venta->estudiante->apoderado->parentesco}}
 
-                                            </td>
                                             <td>
-                                                {{$venta->estudiante->apoderado->telefono}}
-
-                                            </td>
-                                            <td>
-
                                                 @if ($venta->estado==0)
                                                 <span class="fw-bolder p-1 rounded bg-green text-black d-flex justify-content-center align-items-center">PAGO</span>
                                                 @elseif ($venta->estado==1)
@@ -117,11 +106,17 @@
                                                 <span class="fw-bolder p-1 rounded bg-reservado text-black d-flex justify-content-center align-items-center">RESERVAR</span>
                                                 @endif
                                             </td>
+                                            <td>
+                                                {{$venta->cant_material}}
+                                            </td>
+                                            <td>
+                                                {{$venta->prenda}}
+                                            </td>
                                             <td class="text-center">
                                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                                     <form action="" method="get">
                                                         @csrf
-                                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="" title="Editar"><i class="fas fa-edit"></i></button>
+                                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal-{{$venta->id}}" title="Editar"><i class="fas fa-edit"></i></button>
                                                     </form>
                                                     <!--<form action="" method="post">
                                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="" title="Eliminar"><i class="fas fa-calendar-alt"></i></button>
@@ -130,6 +125,92 @@
 
                                             </td>
                                         </tr>
+                                        <div class="modal fade" id="editModal-{{$venta->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-scrollable">
+                                                <div class="modal-content">
+                                                    <div class="modal-header text-center">
+                                                        <h5 class="modal-title" id="exampleModalLabel">RECURSOS</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <form class="edit_venta" action="{{ route('ventas.update', $venta->id) }}" method="post">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                    <!-- DATOS ESTUDIANTE -->
+                                                                    <h1 class="h4 text-gray-900 mb-1 text-center">RECURSOS DEL ESTUDIANTE</h1>
+                                                                    <hr>
+                                                                    <div class="form-group row">
+                                                                        <div class="form-group col-sm-12 mb-3 mb-sm-0">
+                                                                            <input type="hidden" id="estudiante_id" name="estudiante_id" value="{{ $venta->estudiante_id }}">
+                                                                            <input type="hidden" id="pago_id" name="pago_id" value="{{ $venta->pago_id }}">
+                                                                            <input type="hidden" id="ciclo_id" name="ciclo_id" value="{{ $venta->ciclo_id }}">
+                                                                            <input type="hidden" id="empleado_id" name="empleado_id" value="{{ $venta->empleado_id }}">
+                                                                        </div>
+                                                                        <div class="form-group col-sm-12 mb-3 mb-sm-0">
+                                                                            <label for="cant_material">Material (Paquete de hojas):</label>
+                                                                            <select class="form-control" name="cant_material" id="cant_material" required>
+                                                                                
+                                                                                @php
+                                                                                $material = [
+                                                                                "NO ENTREGO" => "NO ENTREGO",
+                                                                                "COMPLETO" => "COMPLETO",
+                                                                                "INCOMPLETO" => "INCOMPLETO",
+                                                                                ];
+                                                                                @endphp
+
+                                                                                @foreach ($material as $value => $label)
+                                                                                <option value="{{ $value }}" class="text-center" @if($venta->cant_material == $value) selected @endif>{{ $label }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <hr>
+                                                                        <div class="form-group col-sm-12 mb-3 mb-sm-0">
+                                                                            <label for="prenda"> Vestimenta (Polo de la academia):</label>
+                                                                            <select class="form-control" name="prenda" id="prenda" required>
+                                                                                
+                                                                                @php
+                                                                                $vestimenta = [
+                                                                                "RESERVAR" => "RESERVAR",
+                                                                                "NO RESERVAR" => "NO RESERVAR",
+                                                                                "ENTREGADO" => "ENTREGADO",
+                                                                                ];
+                                                                                @endphp
+
+                                                                                @foreach ($vestimenta as $value => $label)
+                                                                                <option value="{{ $value }}" class="text-center" @if($venta->prenda == $value) selected @endif>{{ $label }}</option>
+                                                                                @endforeach
+                                                                            </select>
+
+                                                                            
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    <div class="form-group row">
+                                                                        <div class="form-group col-sm-4">
+                                                                        </div>
+                                                                        <div class="form-group col-sm-4">
+                                                                        </div>
+                                                                        <div class="form-group col-sm-4">
+                                                                            <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos w-100" title="Siguiente">Actualizar</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- END DATOS ESTUDIANTE -->
+                                                                </form>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
                                         @endforeach
 
 
@@ -188,6 +269,7 @@
     <script src="{{asset ('assets/jquery-easing/jquery.easing.min.js')}}"></script>
     <!-- Custom scripts for all pages-->
     <script src="{{asset ('js/scripts.js')}}"></script>
+    <script src="{{asset ('js/ventasimpulsa.js')}}"></script>
     <!-- Page level plugins -->
     <script src="{{asset ('assets/datatables/jquery.dataTables.min.js')}}"></script>
 

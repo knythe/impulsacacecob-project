@@ -52,89 +52,102 @@
                         <li class="breadcrumb-item">Registrar Venta</li>
                     </ol>
 
-                    <div class="card o-hidden border-0 shadow-lg my-5">
-                        <div class="card-body p-0">
-                            <!-- Nested Row within Card Body -->
-                            <div class="col-lg-12">
-                                <div class="p-5">
-                                    <form id="create_estudiante" action="{{ route('estudiantes.store') }}" method="post">
-                                        @csrf
-                                        <!-- DATOS ESTUDIANTE -->
-                                        <h1 class="h4 text-gray-900 mb-1 text-center">DATOS DEL ESTUDIANTE</h1>
-                                        <hr>
-                                        <div class="form-group row">
-                                            <div class="form-group col-sm-11 mb-3 mb-sm-0">
-                                                <label for="apoderado_id">Nombres del apoderado:</label>
-                                                <input type="text" class="form-control" id="apoderadoss" name="apoderadoss" placeholder="Ingrese nombres del apoderado" value="{{ $nombre_completo_apoderado }}" readonly>
-                                                <input type="hidden" id="apoderado_id" name="apoderado_id" value="{{ $apoderado_id }}">
-                                            </div>
 
-                                            <!-- botón editar apoderado -->
-                                            <div class="form-group col-sm-1 mb-3 mb-sm-0" role="group" aria-label="Basic mixed styles example">
-                                                <hr>
-                                                <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#editModal-{{$ultimo_apoderado->id}}" title="Editar"><i class="fas fa-edit"></i></button>
-                                            </div>
-                                            <!---->
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="form-group col-sm-6 mb-3 mb-sm-0">
-                                                <label for="nombres">Nombres del estudiante:</label>
-                                                <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Ingrese nombres del estudiante" oninput="soloLetras(this)" required>
-                                            </div>
-                                            <div class="form-group col-sm-6">
-                                                <label for="apellidos">Apellidos del estudiante:</label>
-                                                <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Ingrese apellidos del estudiante" oninput="soloLetras(this)" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="form-group col-sm-4 mb-3 mb-sm-0">
-                                                <label for="dni">Documento de identidad del estudiante:</label>
-                                                <input type="text" class="form-control" id="dni" name="dni" placeholder="Ingrese numero de DNI" maxlength="8" oninput="soloNumeros(this)" required>
-                                            </div>
-                                            <div class="form-group col-sm-4">
-                                                <label for="telefono">Telefono del estudiante:</label>
-                                                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese numero de celular" maxlength="9" oninput="soloNumeros(this)">
-                                                <label for="telefono" class="center-text-label">*completar en caso sea necesario*</label>
-                                            </div>
-                                            <div class="form-group col-sm-4">
-                                                <label for="email">Email del estudiante:</label>
-                                                <input type="text" class="form-control" id="email" name="email" placeholder="Ingrese email del estudiante" oninput="soloLetrasNumeros(this)">
-                                                <label for="email" class="center-text-label">*completar en caso sea necesario*</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="form-group col-sm-3">
-                                                <label for="sede">Sede:</label>
-                                                <select class="form-control" id="sede" name="sede" required>
-                                                    <option value="" class="text-center">- Seleccionar -</option>
-                                                    <option value="Piura" class="text-center">Piura</option>
-                                                    <option value="Paita" class="text-center">Paita</option>
-                                                    <option value="Sechura" class="text-center">Sechura</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-sm-9">
-                                                <label for="direccion">Direccion del estudiante:</label>
-                                                <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Ingrese direccion del estudiante" oninput="soloLetrasNumerosCaracteres(this)" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="form-group col-sm-4">
-                                            </div>
-                                            <div class="form-group col-sm-4">
-                                            </div>
-                                            <div class="form-group col-sm-4">
-                                                <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos w-100" title="Siguiente">Siguiente</button>
-                                            </div>
-                                        </div>
-                                        <!-- END DATOS ESTUDIANTE -->
-                                    </form>
+                </div>
+                <div class="container-impulsa">
+
+                    <div class="image-containerimpulsa">
+                        <img src="{{ asset('img/fondo-estudiantes.jpg') }}" alt="Logo Impulsa">
+                    </div>
+
+                    <div class="form-container-impulsa">
+                        <form id="create_estudiante" action="{{ route('estudiantes.store') }}" method="post">
+                            @csrf
+                            <!-- DATOS ESTUDIANTE -->
+                            <h1 class="h4 text-gray-900 mb-1 text-center">DATOS DEL ESTUDIANTE</h1>
+                            <hr>
+                            <div class="form-group row">
+                                <div class="form-group col-sm-10 mb-3 mb-sm-0">
+                                    <label for="apoderado_id">Nombres del apoderado:</label>
+                                    <input type="text" class="form-control" id="apoderadoss" name="apoderadoss" placeholder="Ingrese nombres del apoderado" value="{{ $nombre_completo_apoderado }}" readonly>
+                                    <input type="hidden" id="apoderado_id" name="apoderado_id" value="{{ $apoderado_id }}">
+                                </div>
+
+                                <!-- botón editar apoderado -->
+                                <div class="form-group col-sm-2 mb-3 mb-sm-0" role="group" aria-label="Basic mixed styles example">
+                                    <hr>
+                                    <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#editModal-{{$ultimo_apoderado->id}}" title="Editar"><i class="fas fa-edit"></i></button>
+                                </div>
+                                <!---->
+                            </div>
+                            <div class="form-group row">
+                                <div class="form-group col-sm-6 mb-3 mb-sm-0">
+                                    <label for="nombres">Nombres del estudiante:</label>
+                                    <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Ingrese nombres del estudiante" oninput="soloLetras(this)" required>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="apellidos">Apellidos del estudiante:</label>
+                                    <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Ingrese apellidos del estudiante" oninput="soloLetras(this)" required>
                                 </div>
                             </div>
-                        </div>
+                            <div class="form-group row">
+                                <div class="form-group col-sm-6 mb-3 mb-sm-0">
+                                    <label for="dni">Documento de identidad del estudiante:</label>
+                                    <input type="text" class="form-control" id="dni" name="dni" placeholder="Ingrese numero de DNI" maxlength="8" oninput="soloNumeros(this)" required>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="telefono">Telefono del estudiante:</label>
+                                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="999-999-999" maxlength="9" oninput="soloNumeros(this)">
+                                    <label for="telefono" class="center-text-label">*completar en caso sea necesario*</label>
+                                </div>
+                                <div class="form-group col-sm-8">
+                                    <label for="email">Email del estudiante:</label>
+                                    <input type="text" class="form-control" id="email" name="email" placeholder="example@gmail.com" oninput="soloLetrasNumeros(this)">
+                                    <label for="email" class="center-text-label">*completar en caso sea necesario*</label>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label for="sede">Sede:</label>
+                                    <select class="form-control" id="sede" name="sede" required>
+                                        <option value="" class="text-center">- Seleccionar -</option>
+                                        <option value="Piura" class="text-center">Piura</option>
+                                        <option value="Paita" class="text-center">Paita</option>
+                                        <option value="Sechura" class="text-center">Sechura</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="form-group col-sm-12">
+                                    <label for="direccion">Direccion del estudiante:</label>
+                                    <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Ingrese direccion del estudiante" oninput="soloLetrasNumerosCaracteres(this)" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="form-group col-sm-4">
+                                </div>
+                                <div class="form-group col-sm-4">
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos w-100" title="Siguiente">Siguiente</button>
+                                </div>
+                            </div>
+                            <!-- END DATOS ESTUDIANTE -->
+                        </form>
+
                     </div>
                 </div>
+
+
+
+
                 <!-- /.container-fluid -->
             </div>
+
+
+
+
+
+
             <!-- End of Main Content -->
 
             <!-- Footer -->

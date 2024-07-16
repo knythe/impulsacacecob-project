@@ -20,5 +20,6 @@ class cacecob_venta extends Model
     public function cacecob_evento() {
         return $this->belongsTo(cacecob_evento::class);
     }
+    protected $guarded = ['id'];
 
 }

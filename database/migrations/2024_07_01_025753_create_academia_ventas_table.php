@@ -28,8 +28,8 @@ return new class extends Migration
             $table->unsignedBigInteger('empleado_id')->nullable();
             $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('set null');
             //
-            $table->string('cant_material'); // material paquete de hojas
-            $table->tinyInteger('prenda')->default(1); // RESERVADO - ENTREGADO 
+            $table->string('cant_material',50); // material paquete de hojas
+            $table->string('prenda',50); // RESERVADO - ENTREGADO 
             $table->tinyInteger('estado')->default(1); // DEUDOR - NO ADEUDADO - RETIRADO 
             $table->timestamp('fecha_registro')->useCurrent(); // Establece la fecha y hora actuales al crear un registro
             $table->timestamps();

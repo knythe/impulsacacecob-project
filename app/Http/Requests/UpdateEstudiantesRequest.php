@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateEstudiantesRequest extends FormRequest
@@ -21,7 +22,7 @@ class UpdateEstudiantesRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules():array
+    /*public function rules():array
     {
         $estudiante= $this->route('estudiante');  // Esto obtiene el modelo de la ruta
         $estudianteid = $estudiante->id;  // Aquí obtienes el ID del modelo
@@ -37,5 +38,27 @@ class UpdateEstudiantesRequest extends FormRequest
             'estado' => 'nullable',
             'fecha_registro'=>'nullable'
         ];
-    }
+    }*/
+
+    public function rules(): array
+{
+    $estudiante = $this->route('estudiante');  // Esto obtiene el modelo de la ruta
+    return [
+        'apoderado_id' => 'required|exists:apoderados,id',
+        'nombres' => 'required|max:80',
+        'apellidos' => 'required|max:80',
+        'dni' => [
+            'required',
+            'max:10',
+            Rule::unique('estudiantes', 'dni')->ignore($estudiante->id),
+        ],
+        'telefono' => 'required|max:15',
+        'email' => 'nullable|max:80',
+        'sede' => 'required|max:20',
+        'direccion' => 'required|max:100',
+        'estado' => 'nullable',
+        'fecha_registro' => 'nullable',
+    ];
+}
+
 }

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('nombres', 50);
             $table->string('apellidos', 50);
             $table->string('dni', 10);
-            $table->string('email', 50);
+            $table->string('email', 50)->nullable();
             $table->string('telefono', 15);
             $table->date('fecha_nacimiento')->nullable();
             $table->string('direccion', 250)->nullable();

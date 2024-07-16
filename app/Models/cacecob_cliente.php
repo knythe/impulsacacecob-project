@@ -11,4 +11,9 @@ class cacecob_cliente extends Model
     public function cacecob_ventas(){
         return $this->hasMany(cacecob_venta::class);
     }
+
+    public function cacecob_pagos(){
+        return $this->hasMany(cacecob_pagos::class);
+    }
+    protected $guarded = ['id'];
 }

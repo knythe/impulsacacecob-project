@@ -28,7 +28,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="/academiaimpulsa/administrador/clientes/registros">
             <i class="fas fa-fw fa-address-card"></i>
             <span>REGISTROS</span>
         </a>
@@ -63,7 +63,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="#">
             <i class="fas fa-fw fa-address-card"></i>
             <span>REGISTROS</span>
         </a>

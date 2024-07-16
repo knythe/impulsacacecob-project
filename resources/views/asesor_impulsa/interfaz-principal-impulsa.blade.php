@@ -19,7 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset ('css/template.css')}}" rel="stylesheet">
-  
+
 
 </head>
 
@@ -36,35 +36,61 @@
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
-           
-                
 
 
-                <!-- Topbar -->
-                
-                <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
-                <x-navigation-header></x-navigation-header>
 
-                    <div class="welcome-container">
-                        <div class="welcome-image">
-                            <img src="{{ asset('img/fondo-asesor.jpg') }}" alt="Logo Impulsa">
-                        </div>
-                        <div class="welcome-content">
-                            <h1 class="text-primary-impulsa">Bienvenidos a Academia Impulsa</h1>
-                            <p>Bienvenido al sistema de Academia Impulsa. Por favor, elija una opción para continuar.</p>
-                            <div class="welcome-buttons">
-                                
-                                <a href="{{route ('ciclos.create')}}" class="btn btn-primary-impulsa">Buscar</a>
-                            </div>
-                        </div>
+            <!-- Topbar -->
+
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <x-navigation-header></x-navigation-header>
+
+            <div class="container-impulsa">
+                <div class="image-containerimpulsa">
+                    <img src="{{ asset('img/logo-impulsa.png') }}" alt="Logo Impulsa">
+                </div>
+
+                <div class="form-container-impulsa">
+                    <div class="row">
+                    <form action="{{ route('buscarEstudiante') }}" method="POST" class="w-100">
+                                        <div class="col-sm-12">
+                                            @csrf
+                                            <hr>
+
+                                            <div class="form-group row">
+                                                <h1 class="form-group col-sm-3"></h1>
+                                                <h1 class="form-group col-sm-9 text-center">Reinscribir</h1>
+                                                <div class="form-group col-sm-3">
+                                                </div>
+                                                <div class="form-group col-sm-9">
+                                                    <label class="text-center" for="dni">Buscar estudiante:</label>
+                                                    <input type="text" class="form-control text-center" id="dni" name="dni" placeholder="Ingrese DNI" maxlength="8" required>
+                                                </div>
+                                                <div class="form-group col-sm-3">
+
+                                                </div>
+                                                <div class="form-group col-sm-9">
+                                                    <button type="submit" class="btn btn-primary-impulsa btn-ciclos btn-block">Buscar</button>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+
+                                            </div>
+                                        </div>
+
+
+                                    </form>
+
                     </div>
+                </div>
+            </div>
 
-                
-                <!-- /.container-fluid -->
 
-            
+            <!-- /.container-fluid -->
+
+
             <!-- End of Main Content -->
 
             <!-- Footer -->

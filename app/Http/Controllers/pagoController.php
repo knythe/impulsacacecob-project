@@ -45,6 +45,54 @@ class pagoController extends Controller
     }
 
 
+    public function registrarnuevopago (){
+        $ultimo_estudiante = estudiante::latest()->first();
+        $estudiante_id = $ultimo_estudiante ? $ultimo_estudiante->id : null;
+
+        // Datos del último comprobante
+        $ultimo_comprobante = Comprobante::latest()->first();
+        $comprobante_id = $ultimo_comprobante ? $ultimo_comprobante->id : null;
+
+        // Almacenar datos en la sesión
+        session([
+            'ultimo_estudiante' => $ultimo_estudiante,
+            'estudiante_id' => $estudiante_id,
+            'ultimo_comprobante' => $ultimo_comprobante,
+            'comprobante_id' => $comprobante_id
+        ]);
+
+        return view('pagos_impulsa.registrar-nuevo-pago-impulsa', compact(
+            'ultimo_estudiante',
+            'estudiante_id',
+            'ultimo_comprobante',
+            'comprobante_id'
+        ));
+
+    }
+
+    public function registrarnuevopagoreinscripcion (){
+        
+
+        // Datos del último comprobante
+        $ultimo_comprobante = Comprobante::latest()->first();
+        $comprobante_id = $ultimo_comprobante ? $ultimo_comprobante->id : null;
+
+        // Almacenar datos en la sesión
+        session([
+            
+            'ultimo_comprobante' => $ultimo_comprobante,
+            'comprobante_id' => $comprobante_id
+        ]);
+
+        return view('asesor_impulsa.registro-detalle-pago-reinscripcion', compact(
+    
+            'ultimo_comprobante',
+            'comprobante_id'
+        ));
+
+    }
+
+
 
     /**
      * Show the form for creating a new resource.

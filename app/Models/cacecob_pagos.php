@@ -14,5 +14,8 @@ class cacecob_pagos extends Model
     public function comprobante() {
         return $this->belongsTo(comprobante::class);
     }
+    public function cacecob_cliente() {
+        return $this->belongsTo(cacecob_cliente::class);
+    }
     protected $guarded = ['id'];
 }

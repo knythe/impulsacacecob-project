@@ -27,9 +27,10 @@
     <!-- Custom styles for this template -->
     <link href="{{asset ('css/template.css')}}" rel="stylesheet">
     <style>
-       .hidden-during-pdf {
+        .hidden-during-pdf {
             display: none !important;
         }
+
         .pdf-friendly-input {
             background-color: white !important;
             border: 1px solid #ccc !important;
@@ -73,7 +74,7 @@
                         <li class="breadcrumb-item"><a class="text-primary-impulsa">Registrar Venta</a></li>
                     </ol>
                     <div class="card o-hidden border-0 shadow-lg my-5">
-                        
+
                         <div id="card-body-content" class="card-body p-0">
                             <!-- Nested Row within Card Body -->
                             <div class="col-lg-12">
@@ -85,84 +86,87 @@
                                         <hr>
                                         <div class="form-group">
                                             <div class="form-group row">
-                                                <div class="form-group col-sm-4 mb-3 mb-sm-0">
-                                                    <label for="apoderado_id">Datos del apoderado:</label>
-                                                    <input type="text" class="form-control text-center" id="apoderado" name="apoderado" placeholder="Ingrese nombres del apoderado" value="{{ $ultimo_pago->estudiante->apoderado->nombres ?? ''}} {{ $ultimo_pago->estudiante->apoderado->apellidos ?? ''}}  " readonly>
-
-                                                </div>
-                                                <div class="form-group col-sm-4 mb-3 mb-sm-0">
-                                                    <label for="telefono_apoderado">Telefono de contacto:</label>
-                                                    <input type="text" class="form-control text-center" id="telefono_apoderado " name="telefono_apoderado" placeholder="Ingrese nombres del apoderado" value="{{ $ultimo_pago->estudiante->apoderado->telefono ?? ''}}  " readonly>
-
-                                                </div>
-                                                <div class="form-group col-sm-4 mb-3 mb-sm-0">
-                                                    <label for="telefono_secundario_apoderado">Telefono secundario:</label>
-                                                    <input type="text" class="form-control text-center" id="telefono_secundario_apoderado" name="telefono_secundario_apoderado" placeholder="Ingrese nombres del apoderado" value="{{ $ultimo_pago->estudiante->apoderado->telefono_secundario ?? ''}} " readonly>
-
-                                                </div>
-
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="form-group col-sm-4 mb-3 mb-sm-0">
-                                                    <label for="estudiante_id">Datos del estudiante:</label>
-                                                    <input type="text" class="form-control text-center" id="estudiante" name="estudiante" placeholder="Ingrese nombres del apoderado" value="{{ $ultimo_pago->estudiante->nombres ?? ''}} {{ $ultimo_pago->estudiante->apellidos }}" readonly>
-                                                    <input type="hidden" id="estudiante_id" name="estudiante_id" value="{{ $ultimo_pago->estudiante_id }}">
-                                                </div>
-                                                <div class="form-group col-sm-4 mb-3 mb-sm-0">
-                                                    <label for="dni">Documento de identidad:</label>
-                                                    <input type="text" class="form-control text-center" id="dni" name="dni" placeholder="Ingrese nombres del apoderado" value="{{ $ultimo_pago->estudiante->dni }}" readonly>
-                                                </div>
-                                                <div class="form-group col-sm-4 mb-3 mb-sm-0">
-                                                    <label for="sede">Sede de matricula:</label>
-                                                    <input type="text" class="form-control text-center" id="sede" name="sede" placeholder="Ingrese nombres del apoderado" value="{{ $ultimo_pago->estudiante->sede }}" readonly>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row" style="margin-bottom: 0px">
-                                                <div class="form-group col-sm-6">
-                                                    <label for="fecha_pago">Fecha de inscripcion:</label>
-                                                    <input type="date" class="form-control text-center" id="fecha_pa" name="fecha_pago" placeholder="Celular" value="{{$ultimo_pago->comprobante->fecha_pago}}" readonly>
-                                                </div>
-                                                <div class="form-group col-sm-6">
-                                                    <label for="tipo_pago">Tipo de pago:</label>
-                                                    <input type="text" class="form-control text-center" id="tipo_pago" name="tipo_pago" placeholder="Celular" value="{{$ultimo_pago->comprobante->tipo_pago}}" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row" style="margin-bottom: 0px">
-                                                <div class="form-group col-sm-4 mb-3 mb-sm-0">
-                                                    <label for="codigo_operacion">Codigo de operacion:</label>
-                                                    <input type="text" class="form-control text-center" id="codigo_operacion" name="codigo_operacion" placeholder="Ingrese codigo de operacion" value="{{$ultimo_pago->comprobante->codigo_operacion}}" readonly>
-                                                </div>
-                                                <div class="form-group col-sm-4">
-                                                    <label for="numero_comprobante">Numero de comprobante:</label>
-                                                    <input type="text" class="form-control text-center" id="numero_comprobante" name="numero_comprobante" placeholder="Ingrese monto cancelado" value="{{$ultimo_pago->comprobante->numero_comprobante}}" readonly>
-                                                </div>
-                                                <div class="form-group col-sm-4">
-                                                    <label for="monto">Monto cancelado:</label>
-                                                    <input type="number" class="form-control text-center" id="monto" name="monto" placeholder="Ingrese monto cancelado" value="{{$ultimo_pago->comprobante->monto}}" readonly>
-                                                    <input type="hidden" id="pago_id" name="pago_id" value="{{$pago_id}}">
-                                                </div>
-
-                                            </div>
-                                            <div class="form-group row" style="margin-bottom: 0px">
-                                                <div class="form-group col-sm-12 mb-3 mb-sm-0">
-                                                    <label for="observaciones">Observaciones:</label>
-                                                    <textarea class="form-control" name="observaciones" id="observaciones" title="Solo alfanumericos" placeholder="Ingresa la descripcion del rol" oninput="soloLetrasNumeros(this)" readonly>{{($ultimo_pago->comprobante->observaciones)}}</textarea>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="form-group row">
-                                                <div class="form-group col-sm-4 mb-3 mb-sm-0">
+                                                <div class="form-group col-sm-5 mb-3 mb-sm-0">
                                                     <label for="ciclo_id">Ciclo:</label>
-                                                    <select class="form-control" id="ciclo_id" name="ciclo_id" required>
+                                                    <select class="form-control" style="background-color: #0245A0; color:white " id="ciclo_id" name="ciclo_id" required>
                                                         @foreach($ciclos as $item)
-                                                        <option value="{{ $item->id }}" class="text-center">{{ $item->nombre_ciclo }}</option>
+                                                        <option value="{{ $item->id }}" class="text-center" data-precio="{{ $item->costo }}">{{ $item->nombre_ciclo }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
+                                                <div id="precio_div" class="form-group col-sm-2 mb-3 mb-sm-0">
+                                                    <label for="precio_ciclo">Costo del ciclo:</label>
+                                                    <input type="text" class="form-control text-center" style="color:black" id="precio_ciclo" readonly>
+                                                </div>
+                                                <div class="form-group col-sm-3">
+                                                    <label for="monto">Monto cancelado:</label>
+                                                    <input type="text" class="form-control text-center" style="color:black" id="monto" name="monto" placeholder="Ingrese monto cancelado" value=" S/. {{$ultimo_pago->comprobante->monto}}" readonly>
+                                                    <input type="hidden" id="pago_id" name="pago_id" value="{{$pago_id}}">
+                                                </div>
+                                                <div class="form-group col-sm-2">
+                                                    <label for="total">Deuda:</label>
+                                                    <input type="text" class="form-control text-center" style="color:black" id="total" readonly>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="form-group col-sm-6 mb-3 mb-sm-0">
+                                                    <label for="apoderado_id">Datos del apoderado:</label>
+                                                    <input type="text" class="form-control text-center" style="color:black" id="apoderado" name="apoderado" placeholder="Ingrese nombres del apoderado" value="{{ $ultimo_pago->estudiante->apoderado->nombres ?? ''}} {{ $ultimo_pago->estudiante->apoderado->apellidos ?? ''}}  " readonly>
+
+                                                </div>
+                                                <div class="form-group col-sm-3 mb-3 mb-sm-0">
+                                                    <label for="telefono_apoderado">Telefono de contacto:</label>
+                                                    <input type="text" class="form-control text-center" style="color:black" id="telefono_apoderado " name="telefono_apoderado" placeholder="Ingrese nombres del apoderado" value="{{ $ultimo_pago->estudiante->apoderado->telefono ?? ''}}  " readonly>
+
+                                                </div>
+                                                <div class="form-group col-sm-3 mb-3 mb-sm-0">
+                                                    <label for="telefono_secundario_apoderado">Telefono secundario:</label>
+                                                    <input type="text" class="form-control text-center" style="color:black" id="telefono_secundario_apoderado" name="telefono_secundario_apoderado" placeholder="Ingrese nombres del apoderado" value="{{ $ultimo_pago->estudiante->apoderado->telefono_secundario ?? ''}} " readonly>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="form-group col-sm-6 mb-3 mb-sm-0">
+                                                    <label for="estudiante_id">Datos del estudiante:</label>
+                                                    <input type="text" class="form-control text-center" style="color:black" id="estudiante" name="estudiante" placeholder="Ingrese nombres del apoderado" value="{{ $ultimo_pago->estudiante->nombres ?? ''}} {{ $ultimo_pago->estudiante->apellidos }}" readonly>
+                                                    <input type="hidden" id="estudiante_id" name="estudiante_id" value="{{ $ultimo_pago->estudiante_id }}">
+                                                </div>
+                                                <div class="form-group col-sm-3 mb-3 mb-sm-0">
+                                                    <label for="dni">Documento de identidad:</label>
+                                                    <input type="text" class="form-control text-center" style="color:black" id="dni" name="dni" placeholder="Ingrese nombres del apoderado" value="{{ $ultimo_pago->estudiante->dni }}" readonly>
+                                                </div>
+                                                <div class="form-group col-sm-3 mb-3 mb-sm-0">
+                                                    <label for="sede">Sede de matricula:</label>
+                                                    <input type="text" class="form-control text-center" style="color:black" id="sede" name="sede" placeholder="Ingrese nombres del apoderado" value="{{ $ultimo_pago->estudiante->sede }}" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row" style="margin-bottom: 0px">
+                                                <div class="form-group col-sm-3">
+                                                    <label for="fecha_pago">Fecha de inscripcion:</label>
+                                                    <input type="date" class="form-control text-center" style="color:black" id="fecha_pa" name="fecha_pago" placeholder="Celular" value="{{$ultimo_pago->comprobante->fecha_pago}}" readonly>
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label for="tipo_pago">Tipo de pago:</label>
+                                                    <input type="text" class="form-control text-center" style="color:black" id="tipo_pago" name="tipo_pago" placeholder="Celular" value="{{$ultimo_pago->comprobante->tipo_pago}}" readonly>
+                                                </div>
+                                                <div class="form-group col-sm-5 mb-3 mb-sm-0">
+                                                    <label for="codigo_operacion">Codigo de operacion:</label>
+                                                    <input type="text" class="form-control text-center" style="color:black" id="codigo_operacion" name="codigo_operacion" placeholder="Ingrese codigo de operacion" value="{{$ultimo_pago->comprobante->codigo_operacion}}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row" style="margin-bottom: 0px">
+
+                                                <div class="form-group col-sm-3">
+                                                    <label for="numero_comprobante">Numero de comprobante:</label>
+                                                    <input type="text" class="form-control text-center" style="color:black" id="numero_comprobante" name="numero_comprobante" placeholder="Ingrese monto cancelado" value="{{$ultimo_pago->comprobante->numero_comprobante}}" readonly>
+                                                </div>
+
                                                 <div class="form-group col-sm-3 mb-3 mb-sm-0">
                                                     <label for="empleado_id">Asesor(a):</label>
-                                                    <select class="form-control" id="empleado_id" name="empleado_id" required>
+                                                    <select class="form-control" style="background-color: #0245A0; color:white " id="empleado_id" name="empleado_id" required>
                                                         @foreach($empleados as $empleado)
                                                         <option value="{{ $empleado->id }}" class="text-center">{{ $empleado->usuario->user }}</option>
                                                         @endforeach
@@ -170,26 +174,35 @@
                                                 </div>
                                                 <div class="form-group col-sm-3 mb-3 mb-sm-0">
                                                     <label for="prenda">Vestimenta:</label>
-                                                    <select class="form-control" id="prenda" name="prenda" required>
-                                                        <option value="1" class="text-center">RESERVAR</option>
-                                                        <option value="2" class="text-center">NO RESERVAR</option>
-                                                        <option value="3" class="text-center">ENTREGADO</option>
+                                                    <select class="form-control text-center" style="background-color: #0245A0; color:white " id="prenda" name="prenda" required>
+                                                        <option value="">- SELECCIONAR - </option>
+                                                        <option value="RESERVAR" class="text-center">RESERVAR</option>
+                                                        <option value="NO RESERVAR" class="text-center">NO RESERVAR</option>
+                                                        <option value="ENTREGADO" class="text-center">ENTREGADO</option>
                                                     </select>
                                                 </div>
-                                                <div class="form-group col-sm-2 mb-3 mb-sm-0">
+                                                <div class="form-group col-sm-3 mb-3 mb-sm-0">
                                                     <label for="cant_material">Material:</label>
-                                                    <select class="form-control" id="cant_material" name="cant_material" required>
-                                                        <option value="1" class="text-center">NO ENTREGO</option>
-                                                        <option value="2" class="text-center">COMPLETO</option>
-                                                        <option value="3" class="text-center">INCOMPLETO</option>
+                                                    <select class="form-control" style="background-color: #0245A0; color:white " id="cant_material" name="cant_material" required>
+                                                        <option value="" class="text-center">- SELECCIONAR -</option>
+                                                        <option value="NO ENTREGO" class="text-center">NO ENTREGO</option>
+                                                        <option value="COMPLETO" class="text-center">COMPLETO</option>
+                                                        <option value="INCOMPLETO" class="text-center">INCOMPLETO</option>
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="form-group row" style="margin-bottom: 0px">
+                                                <div class="form-group col-sm-12 mb-3 mb-sm-0">
+                                                    <label for="observaciones">Observaciones:</label>
+                                                    <textarea class="form-control" name="observaciones" style="color:black" id="observaciones" title="Solo alfanumericos" placeholder="Ingresa la descripcion del rol" oninput="soloLetrasNumeros(this)" readonly>{{($ultimo_pago->comprobante->observaciones)}}</textarea>
+                                                </div>
+                                            </div>
+
                                             <hr>
                                             <!-- END DATOS ESTUDIANTE -->
                                             <div>
                                                 <!--<button type="submit" class="btn btn-primary-personal btn-ciclos">Siguiente</button>-->
-                                                <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos hide-on-pdf" id="save-button" title="Eliminar">Registrar venta</button>                                             
+                                                <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos hide-on-pdf" id="save-button" title="Eliminar">Registrar venta</button>
                                             </div>
                                     </form>
 
@@ -262,6 +275,47 @@
     </script>
     @endif
 
+    <script>
+        function updateTotal() {
+            // Obtener el valor del precio del ciclo
+            var precioCicloInput = document.getElementById('precio_ciclo').value;
+            var precioCiclo = parseFloat(precioCicloInput.replace('S/.', '').trim()) || 0;
+
+            // Obtener el valor del monto cancelado
+            var montoInput = document.getElementById('monto').value;
+            var monto = parseFloat(montoInput.replace('S/.', '').trim()) || 0;
+
+            // Calcular la suma de ambos valores
+            var total = precioCiclo - monto;
+
+            // Actualizar el input del total
+            document.getElementById('total').value = 'S/. ' + total.toFixed(0);
+        }
+
+        // Añadir un event listener al select para actualizar el total cuando se seleccione un ciclo
+        document.getElementById('ciclo_id').addEventListener('change', function() {
+            var selectedOption = this.options[this.selectedIndex];
+            var precio = selectedOption.getAttribute('data-precio');
+
+            var precioCiclo = document.getElementById('precio_ciclo');
+
+            if (precio) {
+                precioCiclo.value = 'S/. ' + precio;
+            } else {
+                precioCiclo.value = 'S/. 0.00';
+            }
+
+            // Actualizar el total
+            updateTotal();
+        });
+
+        // Actualizar el total al cargar la página
+        window.onload = function() {
+            updateTotal();
+        };
+    </script>
+
+
 
     <!-- -->
     <!-- BstrapJS -->
@@ -280,7 +334,7 @@
 
     <!-- Page level custom scripts -->
     <script src="{{asset ('assets/demo/datatables-demo.js')}}"></script>
-  
+
 
 
 
