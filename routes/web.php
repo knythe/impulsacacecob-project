@@ -13,6 +13,8 @@ use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\pagoController;
 use App\Http\Controllers\roleController;
 use App\Http\Controllers\usuarioController;
+use App\Http\Requests\storeCacecob_clientesRequest;
+use App\Models\cacecob_cliente;
 use App\Models\comprobante;
 use Illuminate\Cache\Events\CacheMissed;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +58,41 @@ Route::get('/asesor_impulsa', function () {
 /*Route::get('/academia_ventas/apoderados', function () {
     return view('asesor_impulsa.registro-apoderado');
 });*/
+
+Route::get('/cacecobeirl/administrador/reporteventascacecob', [CacecobventasController::class, 'reporteventascacecob'])->name('/cacecobeirl/ventas/administrador/reporteventascacecob');
+
+Route::get('/cacecobeirl/cliente/registrar/comprobante/detalle/pago', [CacecobpagosController::class, 'registrarnuevopagocacecob'])->name('/cacecobeirl/registrarnuevopagocacecob');
+
+Route::get('/cacecobeirl/cliente/registrar/nuevo/comprobante', function () {
+    return view('pagos_cacecob.registrar-nuevo-comprobante-cacecob');
+});
+
+Route::post('/cacecobeirl/administrador/controlpagoscacecob', [CacecobClientesController::class, 'controlpagoscacecob'])->name('controlpagoscacecob');
+
+Route::get('/cacecobeirl/registros/ventas/clientes', [CacecobventasController::class, 'ventascacecobAsesor'])->name('/cacecobeirl/ventascacecobAdministrador');
+Route::get('/cacecobeirl/administrador/clientes/registros', [CacecobventasController::class, 'ventascacecobAdministrador'])->name('/cacecobeirl/ventascacecobAsesor');
+
+Route::get('/cacecobeirl/search/information/customers/nueva/venta', [CacecobventasController::class, 'registrarventacacecobreincripcion'])->name('/cacecobeirl/registrarventacacecobreincripcion');
+Route::get('/cacecobeirl/search/information/customers/nuevo/comprobante/detalle/pago', [CacecobpagosController::class, 'registrarnuevopagocacecobreinscripcion'])->name('/cacecobeirl/registrarnuevopagocacecobreinscripcion');
+
+Route::post('/cacecobeirl/search/information/customers', [CacecobClientesController::class, 'buscarCliente'])->name('buscarCliente');
+
+Route::get('/cacecobeirl/home', function () {
+    return view('asesor_cacecob.interfaz-principal-cacecob');
+});
+Route::get('/cacecobeirlbuscarprueba', function () {
+    return view('pagos_cacecob.busquedaprueba');
+});
+
+
+Route::get('/cacecobeirl/search/customers', function () {
+    return view('asesor_cacecob.interfaz-buscar-cliente-cacecob');
+});
+
+Route::get('/cacecobeirl/search/information/customers/nuevo/comprobante', function () {
+    return view('asesor_cacecob.registro-comprobante-cacecob-reinscripcion');
+});
+
 Route::resource('/cacecobeirl/registrar/pago', CacecobpagosController::class)->names([
     'index' => 'cacecobpago.index',
     'create' => 'cacecobpago.create',
@@ -88,7 +125,6 @@ Route::get('/cacecobeirl/registrar/comprobantes', function () {
 
 
 
-
 Route::resource('ciclos', academia_cicloController::class);
 Route::resource('eventos', cacecob_eventoController::class);
 Route::resource('empleados', empleadoController::class);
@@ -101,11 +137,12 @@ Route::resource('/impulsa/comprobantes', ComprobanteController::class);
 Route::resource('/impulsa/detalle/pago', pagoController::class);
 Route::get('/academiaimpulsa/clientes/registros', [Academia_ventaController::class, 'ventasAsesor'])->name('/impulsa/ventas');
 Route::get('/academiaimpulsa/administrador/clientes/registros', [Academia_ventaController::class, 'ventasAsesorAdministrador'])->name('/impulsa/ventas/administrador');
+Route::get('/academiaimpulsa/administrador/reporteventasimpulsa', [Academia_ventaController::class, 'reporteventasimpulsa'])->name('/impulsa/ventas/administrador/reporteventasimpulsa');
 Route::get('/academiaimpulsa/estudiante/registrar/comprobante/detalle/pago', [pagoController::class, 'registrarnuevopago'])->name('/impulsa/registrarnuevopago');
 Route::get('/academiaimpulsa/buscar/estudiante/nuevo/comprobante/detalle/pago', [pagoController::class, 'registrarnuevopagoreinscripcion'])->name('/impulsa/registrarnuevopagoreinscripcion');
 Route::get('/academiaimpulsa/buscar/estudiante/nueva/venta/reinscripcion', [Academia_ventaController::class, 'registrarventareincripcion'])->name('/impulsa/registrarventareincripcion');
 Route::get('/academiaimpulsa/administrador/estatus', [Academia_ventaController::class, 'dashboard'])->name('/impulsa/administrador/ventaspormes');
-
+Route::post('/academiaimpulsa/administrador/controlpagosimpulsa', [EstudianteController::class, 'controlpagosimpulsa'])->name('controlpagosimpulsa');
 
 
 
@@ -149,3 +186,7 @@ Route::get('/registros', function () {
 Route::get('/404', function () {
     return view('pages.404');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

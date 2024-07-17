@@ -43,6 +43,51 @@ class CacecobpagosController extends Controller
         ));
     }
 
+
+    public function registrarnuevopagocacecobreinscripcion (){
+        
+
+        // Datos del último comprobante
+        $ultimo_comprobante = Comprobante::latest()->first();
+        $comprobante_id = $ultimo_comprobante ? $ultimo_comprobante->id : null;
+
+        // Almacenar datos en la sesión
+        session([
+            
+            'ultimo_comprobante' => $ultimo_comprobante,
+            'comprobante_id' => $comprobante_id
+        ]);
+
+        return view('asesor_cacecob.registro-pago-cacecob-reinscripcion', compact(
+    
+            'ultimo_comprobante',
+            'comprobante_id'
+        ));
+
+    }
+
+    
+    public function registrarnuevopagocacecob (){
+         // Datos del último comprobante
+         $ultimo_comprobante = Comprobante::latest()->first();
+         $comprobante_id = $ultimo_comprobante ? $ultimo_comprobante->id : null;
+ 
+         // Almacenar datos en la sesión
+         session([
+             
+             'ultimo_comprobante' => $ultimo_comprobante,
+             'comprobante_id' => $comprobante_id
+         ]);
+ 
+         return view('pagos_cacecob.registrar-nuevo-pago-cacecob', compact(
+     
+             'ultimo_comprobante',
+             'comprobante_id'
+         ));
+
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

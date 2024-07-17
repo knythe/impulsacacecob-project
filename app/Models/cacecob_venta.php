@@ -12,13 +12,13 @@ class cacecob_venta extends Model
         return $this->belongsTo(cacecob_pagos::class);
     }
     public function cacecob_cliente() {
-        return $this->belongsTo(cacecob_cliente::class);
+        return $this->belongsTo(cacecob_cliente::class,'clientecacecob_id');
     }
     public function empleado() {
         return $this->belongsTo(empleado::class);
     }
     public function cacecob_evento() {
-        return $this->belongsTo(cacecob_evento::class);
+        return $this->belongsTo(cacecob_evento::class,'evento_id');
     }
     protected $guarded = ['id'];
 

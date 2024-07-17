@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="form-container-impulsa">
-                        <form action="{{ route('comprobantes.store') }}" id="create_comprobante" method="post">
+                        <form action="{{ route('comprobantes.store') }}" id="create_comprobante_cacecob" method="post">
                             @csrf
                             <!-- DATOS DE INSCRIPCION -->
                             <h1 class="h4 text-gray-900 mb-1 text-center">DATOS DE COMPROBANTE</h1>
@@ -183,6 +183,7 @@
     <!-- Custom scripts for all pages-->
     <script src="{{asset ('js/scripts.js')}}"></script>
     <script src="{{asset ('js/comprobantes.js')}}"></script>
+    <script src="{{asset ('js/pagos_cacecob.js')}}"></script>
     <!-- Page level plugins -->
     <script src="{{asset ('assets/datatables/jquery.dataTables.min.js')}}"></script>
 

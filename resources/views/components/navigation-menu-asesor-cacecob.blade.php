@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary-cacecob sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/academiaimpulsa/home">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/cacecobeirl/home">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-copyright"></i>
         </div>
@@ -32,21 +32,13 @@
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="/academiaimpulsa/clientes/registros">
+        <a class="nav-link" href="/cacecobeirl/registros/ventas/clientes">
             <i class="fas fa-user-friends"></i>
             <span>CLIENTES</span>
         </a>
 
     </li>
 
-    <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link" href="/academiaimpulsa/buscar/estudiante">
-            <i class="fas fa-hand-holding-usd"></i>
-            <span>PAGOS</span>
-        </a>
-
-    </li>
    
     
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\storeCacecob_ventasRequest;
+use App\Http\Requests\UpdateCacecob_ventasRequest;
 use App\Models\cacecob_cliente;
 use App\Models\cacecob_evento;
 use App\Models\cacecob_pagos;
@@ -60,6 +61,74 @@ class CacecobventasController extends Controller
             )
         );
     }
+
+    public function registrarventacacecobreincripcion()
+    {
+        //
+        $cacecob_ventas = cacecob_venta::get();
+        //PAGOS
+        $ultimo_pagocacecob = cacecob_pagos::latest()->first();
+        $pago_id = $ultimo_pagocacecob ? $ultimo_pagocacecob->id : null;
+
+        //usuarios
+        $usuarios = usuario::where('estado', 1)->get();
+        //ciclos
+        $cacecob_eventos = cacecob_evento::where('estado', 1)->get();
+        //empleados
+        $empleados = Empleado::where('estado', 1)
+            ->whereHas('usuario', function ($query) {
+                $query->where('role_id', 9);
+            })
+            ->with('usuario')
+            ->get();
+
+
+        return view(
+            'asesor_cacecob.registro-venta-cacecob-reinscripcion',
+            compact(
+                'cacecob_ventas',
+                'pago_id',
+                'empleados',
+                'cacecob_eventos',
+                'ultimo_pagocacecob',
+            )
+        );
+    }
+
+    public function ventascacecobAsesor()
+    {
+        $ventascacecob = cacecob_venta::get();
+        $empleados = empleado::get();
+        return view('registros_cacecob.registros-ventas-cacecob-asesor', ['ventascacecob' => $ventascacecob], compact( 'empleados'));
+    }
+
+    public function ventascacecobAdministrador()
+    {
+        $ventascacecob = cacecob_venta::get();
+        $empleados = empleado::get();
+        return view('registros_cacecob.registros-ventas-cacecob', ['ventascacecob' => $ventascacecob], compact( 'empleados'));
+    }
+
+    public function reporteventascacecob()
+    {
+        $ventascacecob = cacecob_venta::get();
+        $empleados = Empleado::where('estado', 1)
+            ->whereHas('usuario', function ($query) {
+                $query->where('role_id', 9);
+            })
+            ->with('usuario')
+            ->get();
+        $clientes = cacecob_cliente::get();
+        $eventos= cacecob_evento::get();
+
+
+        return view('administrador.reportes-ventas-cacecob', ['ventascacecob' => $ventascacecob], compact('clientes', 'empleados','eventos'));
+    }
+
+
+/**toque lo de cliente a aqui */
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -119,9 +188,21 @@ class CacecobventasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCacecob_ventasRequest $request, cacecob_venta $cacecobventa)
     {
-        //
+        {
+            //
+
+            try {
+                DB::beginTransaction();
+                $cacecobventa->update($request->validated());
+                DB::commit();
+                return response()->json(['success' => 'Venta editada', 'cacecobventa' => $cacecobventa], 200);
+            } catch (Exception $e) {
+                DB::rollBack();
+                return response()->json(['error' => 'No se pudo editar el cliente.'], 500);
+            }
+        }
     }
 
     /**

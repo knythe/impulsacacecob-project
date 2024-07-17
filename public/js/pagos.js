@@ -71,6 +71,29 @@ $(document).ready(function() {
         });
     });
 
+    $('#create_nuevo_pago_cacecob').on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function(response) {
+               
+                    // Redirigir a la página de los registros hechos
+                    window.location.href = "/cacecobeirl/registros/ventas/clientes"; 
+                
+            },
+            error: function(error) {
+                console.error(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al crear pago',
+                });
+            }
+        });
+    });
+
     // Editar estudiante tipo class
    // Editar apoderado tipo class
     

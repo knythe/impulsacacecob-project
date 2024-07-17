@@ -9,7 +9,7 @@ class academia_venta extends Model
 {
     use HasFactory;
     public function academia_ciclo(){
-        return $this->belongsTo(academia_ciclo::class);
+        return $this->belongsTo(academia_ciclo::class,'ciclo_id');
     }
     public function pago(){
         return $this->belongsTo(pago::class);

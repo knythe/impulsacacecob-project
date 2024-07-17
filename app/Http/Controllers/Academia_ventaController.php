@@ -40,7 +40,12 @@ class Academia_ventaController extends Controller
         //ciclos
         $ciclos = Academia_ciclo::where('estado', 1)->get();
         //empleados
-        $empleados = Empleado::where('estado', 1)->with('usuario')->get();
+        $empleados = Empleado::where('estado', 1)
+        ->whereHas('usuario', function ($query) {
+            $query->where('role_id', 7);
+        })
+        ->with('usuario')
+        ->get();
 
 
         return view(
@@ -108,6 +113,22 @@ class Academia_ventaController extends Controller
 
 
         return view('registros.registros-impulsa', ['ventasimpulsa' => $ventasimpulsa], compact('estudiantes', 'empleados'));
+    }
+
+    public function reporteventasimpulsa()
+    {
+        $ventasimpulsa = Academia_venta::get();
+        $empleados = Empleado::where('estado', 1)
+            ->whereHas('usuario', function ($query) {
+                $query->where('role_id', 7);
+            })
+            ->with('usuario')
+            ->get();
+        $estudiantes = Estudiante::get();
+        $ciclos = Academia_ciclo::get();
+
+
+        return view('administrador.reportes-ventas-impulsa', ['ventasimpulsa' => $ventasimpulsa], compact('estudiantes', 'empleados','ciclos'));
     }
 
 

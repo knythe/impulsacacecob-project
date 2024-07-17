@@ -12,7 +12,7 @@
     <title>Registros de ventas - Academia Impulsa</title>
     <link rel="website icon" type="png" href="{{asset ('img/logo-impulsa.png')}}">
     <!-- Bstrap Css-->
-    
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--END ALERTA-->
     <!-- Bstrap Css-->
@@ -56,7 +56,10 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Registros de ventas - Academia Impulsa</h1>
                     <!--<p class="mb-4">##</p>-->
-
+                    <form id="busquedaEstudianteForm" action="{{ route('busquedaEstudiante') }}" method="POST" style="display: none;">
+                        @csrf
+                        <input type="hidden" name="dni" id="dniInput">
+                    </form>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
 
@@ -84,7 +87,7 @@
                                             </td>
                                             <td>
                                                 <p class="fw-semibold mb-1">{{ $venta->estudiante->nombres ?? '' }} {{$venta->estudiante->apellidos ?? ''}}</p>
-                                                <p class="text-muted mb-0">DNI: {{ $venta->estudiante->dni ?? '' }}</p>
+                                                <p class="text-muted mb-0 dni">{{ $venta->estudiante->dni ?? '' }}</p>
                                                 <p class="text-muted mb-0">Telefono: {{ $venta->estudiante->telefono ?? 'S/N' }}</p>
                                             </td>
                                             <td>
@@ -116,11 +119,12 @@
                                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                                     <form action="" method="get">
                                                         @csrf
-                                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal-{{$venta->id}}" title="Editar"><i class="fas fa-edit"></i></button>
+                                                        <button type="button" class="btn btn-success" title="Editar"><i class="fas fa-edit"></i></button>
                                                     </form>
                                                     <!--<form action="" method="post">
                                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="" title="Eliminar"><i class="fas fa-calendar-alt"></i></button>
                                                     </form>-->
+                                                    <button class="search-button"></button>
                                                 </div>
 
                                             </td>
@@ -136,8 +140,8 @@
                                                         <div class="card">
                                                             <div class="card-body">
                                                                 <form class="edit_venta" action="{{ route('ventas.update', $venta->id) }}" method="post">
-                                                                @csrf
-                                                                @method('PUT')
+                                                                    @csrf
+                                                                    @method('PUT')
                                                                     <!-- DATOS ESTUDIANTE -->
                                                                     <h1 class="h4 text-gray-900 mb-1 text-center">RECURSOS DEL ESTUDIANTE</h1>
                                                                     <hr>
@@ -151,7 +155,7 @@
                                                                         <div class="form-group col-sm-12 mb-3 mb-sm-0">
                                                                             <label for="cant_material">Material (Paquete de hojas):</label>
                                                                             <select class="form-control" name="cant_material" id="cant_material" required>
-                                                                                
+
                                                                                 @php
                                                                                 $material = [
                                                                                 "NO ENTREGO" => "NO ENTREGO",
@@ -170,7 +174,7 @@
                                                                         <div class="form-group col-sm-12 mb-3 mb-sm-0">
                                                                             <label for="prenda"> Vestimenta (Polo de la academia):</label>
                                                                             <select class="form-control" name="prenda" id="prenda" required>
-                                                                                
+
                                                                                 @php
                                                                                 $vestimenta = [
                                                                                 "RESERVAR" => "RESERVAR",
@@ -184,7 +188,7 @@
                                                                                 @endforeach
                                                                             </select>
 
-                                                                            
+
                                                                         </div>
 
                                                                     </div>
@@ -259,6 +263,33 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Función para enviar el DNI mediante POST
+        function buscarEstudiante(event) {
+            // Obtener el botón que fue clickeado
+            const button = event.target;
+
+            // Obtener la fila que contiene el botón
+            const row = button.closest('tr');
+
+            // Obtener el valor del DNI desde la misma fila
+            const dni = row.querySelector('.dni').textContent;
+
+            // Asignar el valor del DNI al input oculto del formulario
+            document.getElementById('dniInput').value = dni;
+
+            // Enviar el formulario
+            document.getElementById('busquedaEstudianteForm').submit();
+        }
+
+        // Agregar el evento de clic a todos los botones de búsqueda
+        document.querySelectorAll('.search-button').forEach(button => {
+            button.addEventListener('click', buscarEstudiante);
+        });
+    </script>
+
+
 
     <!-- -->
     <!-- BstrapJS -->

@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="form-container-impulsa">
-                        <form action="{{ route('cacecobpago.store') }}" id="create_pago" method="post">
+                        <form action="{{ route('cacecobpago.store') }}" id="create_pagocacecob" method="post">
                             @csrf
                             <!-- DATOS DE INSCRIPCION -->
                             <h1 class="h4 text-gray-900 mb-1 text-center">DETALLES DE PAGO</h1>
@@ -344,6 +344,7 @@
     <script src="{{asset ('js/estudiantes.js')}}"></script>
     <script src="{{asset ('js/pagos.js')}}"></script>
     <script src="{{asset ('js/cacecobclientes.js')}}"></script>
+    <script src="{{asset ('js/pagos_cacecob.js')}}"></script>
     <!-- Page level plugins -->
     <script src="{{asset ('assets/datatables/jquery.dataTables.min.js')}}"></script>
 

@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>REGISTRAR VENTA - CACECOB EIRL</title>
-    <link rel="website icon" type="png" href="{{asset ('img/logo-impulsa.png')}}">
+    <link rel="website icon" type="png" href="{{asset ('img/logo-cacecob.png')}}">
     <!-- ALERTA-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--END ALERTA-->

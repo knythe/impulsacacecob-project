@@ -12,7 +12,7 @@
     <title>Registros de ventas - Academia Impulsa</title>
     <link rel="website icon" type="png" href="{{asset ('img/logo-impulsa.png')}}">
     <!-- Bstrap Css-->
-    
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--END ALERTA-->
     <!-- Bstrap Css-->
@@ -22,6 +22,7 @@
     <link href="{{asset ('assets/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!-- Custom styles for this template -->
     <link href="{{asset ('css/template.css')}}" rel="stylesheet">
 
@@ -57,6 +58,11 @@
                     <h1 class="h3 mb-2 text-gray-800">Registros de ventas - Academia Impulsa</h1>
                     <!--<p class="mb-4">##</p>-->
 
+                    <form id="busquedaEstudianteForm" action="{{ route('controlpagosimpulsa') }}" method="POST" style="display: none;">
+                        @csrf
+                        <input type="hidden" name="dni" id="dniInput">
+                    </form>
+                    
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
 
@@ -77,14 +83,14 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($ventasimpulsa as $venta)
-                                        <tr>
+                                        <tr data-asesor="{{ $venta->empleado->usuario->user }}" data-fecha="{{ \Carbon\Carbon::parse($venta->pago->comprobante->fecha_pago)->format('Y-m-d') }}">
                                             <td>
                                                 <span class="fw-bolder p-1 rounded bg-warning text-black d-flex justify-content-center align-items-center"> {{$venta->empleado->usuario->user}}</span>
                                                 <p class="text-center">Venta: {{\Carbon\Carbon::parse($venta->pago->comprobante->fecha_pago)->format('d-m-Y')}}</p>
                                             </td>
                                             <td>
                                                 <p class="fw-semibold mb-1">{{ $venta->estudiante->nombres ?? '' }} {{$venta->estudiante->apellidos ?? ''}}</p>
-                                                <p class="text-muted mb-0">DNI: {{ $venta->estudiante->dni ?? '' }}</p>
+                                                <p class="text-muted mb-0 dni">{{ $venta->estudiante->dni ?? '' }}</p>
                                                 <p class="text-muted mb-0">Telefono: {{ $venta->estudiante->telefono ?? 'S/N' }}</p>
                                             </td>
                                             <td>
@@ -116,107 +122,16 @@
                                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                                     <form action="" method="get">
                                                         @csrf
-                                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal-{{$venta->id}}" title="Editar"><i class="fas fa-edit"></i></button>
+                                                        <button type="button" class="btn btn-success search-button"><i class="fas fa-calendar-alt"></i></button>
                                                     </form>
-                                                    <!--<form action="" method="post">
-                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="" title="Eliminar"><i class="fas fa-calendar-alt"></i></button>
-                                                    </form>-->
                                                 </div>
-
                                             </td>
                                         </tr>
-                                        <div class="modal fade" id="editModal-{{$venta->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-scrollable">
-                                                <div class="modal-content">
-                                                    <div class="modal-header text-center">
-                                                        <h5 class="modal-title" id="exampleModalLabel">RECURSOS</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="card">
-                                                            <div class="card-body">
-                                                                <form class="edit_venta" action="{{ route('ventas.update', $venta->id) }}" method="post">
-                                                                @csrf
-                                                                @method('PUT')
-                                                                    <!-- DATOS ESTUDIANTE -->
-                                                                    <h1 class="h4 text-gray-900 mb-1 text-center">RECURSOS DEL ESTUDIANTE</h1>
-                                                                    <hr>
-                                                                    <div class="form-group row">
-                                                                        <div class="form-group col-sm-12 mb-3 mb-sm-0">
-                                                                            <input type="hidden" id="estudiante_id" name="estudiante_id" value="{{ $venta->estudiante_id }}">
-                                                                            <input type="hidden" id="pago_id" name="pago_id" value="{{ $venta->pago_id }}">
-                                                                            <input type="hidden" id="ciclo_id" name="ciclo_id" value="{{ $venta->ciclo_id }}">
-                                                                            <input type="hidden" id="empleado_id" name="empleado_id" value="{{ $venta->empleado_id }}">
-                                                                        </div>
-                                                                        <div class="form-group col-sm-12 mb-3 mb-sm-0">
-                                                                            <label for="cant_material">Material (Paquete de hojas):</label>
-                                                                            <select class="form-control" name="cant_material" id="cant_material" required>
-                                                                                
-                                                                                @php
-                                                                                $material = [
-                                                                                "NO ENTREGO" => "NO ENTREGO",
-                                                                                "COMPLETO" => "COMPLETO",
-                                                                                "INCOMPLETO" => "INCOMPLETO",
-                                                                                ];
-                                                                                @endphp
-
-                                                                                @foreach ($material as $value => $label)
-                                                                                <option value="{{ $value }}" class="text-center" @if($venta->cant_material == $value) selected @endif>{{ $label }}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-
-                                                                        <hr>
-                                                                        <div class="form-group col-sm-12 mb-3 mb-sm-0">
-                                                                            <label for="prenda"> Vestimenta (Polo de la academia):</label>
-                                                                            <select class="form-control" name="prenda" id="prenda" required>
-                                                                                
-                                                                                @php
-                                                                                $vestimenta = [
-                                                                                "RESERVAR" => "RESERVAR",
-                                                                                "NO RESERVAR" => "NO RESERVAR",
-                                                                                "ENTREGADO" => "ENTREGADO",
-                                                                                ];
-                                                                                @endphp
-
-                                                                                @foreach ($vestimenta as $value => $label)
-                                                                                <option value="{{ $value }}" class="text-center" @if($venta->prenda == $value) selected @endif>{{ $label }}</option>
-                                                                                @endforeach
-                                                                            </select>
-
-                                                                            
-                                                                        </div>
-
-                                                                    </div>
-
-                                                                    <div class="form-group row">
-                                                                        <div class="form-group col-sm-4">
-                                                                        </div>
-                                                                        <div class="form-group col-sm-4">
-                                                                        </div>
-                                                                        <div class="form-group col-sm-4">
-                                                                            <button type="submit" class="btn btn-primary-impulsa-estudiante btn-ciclos w-100" title="Siguiente">Actualizar</button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- END DATOS ESTUDIANTE -->
-                                                                </form>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-
                                         @endforeach
-
-
                                     </tbody>
                                 </table>
                             </div>
+
                         </div>
                     </div>
 
@@ -259,6 +174,35 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Función para enviar el DNI mediante POST
+        function buscarEstudiante(event) {
+            // Obtener el botón que fue clickeado
+            const button = event.target;
+
+            // Obtener la fila que contiene el botón
+            const row = button.closest('tr');
+
+            // Obtener el valor del DNI desde la misma fila
+            const dni = row.querySelector('.dni').textContent;
+
+            // Asignar el valor del DNI al input oculto del formulario
+            document.getElementById('dniInput').value = dni;
+
+            // Enviar el formulario
+            document.getElementById('busquedaEstudianteForm').submit();
+        }
+
+        // Agregar el evento de clic a todos los botones de búsqueda
+        document.querySelectorAll('.search-button').forEach(button => {
+            button.addEventListener('click', buscarEstudiante);
+        });
+    </script>
+
+
+
+
 
     <!-- -->
     <!-- BstrapJS -->

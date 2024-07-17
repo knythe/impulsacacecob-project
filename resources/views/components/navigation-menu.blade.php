@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary-impulsa sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route ('panel')}}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/academiaimpulsa/administrador/estatus">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-paper-plane"></i>
         </div>
@@ -13,7 +13,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="{{route ('panel')}}">
+        <a class="nav-link" href="/academiaimpulsa/administrador/estatus">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -37,7 +37,7 @@
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="/academiaimpulsa/administrador/reporteventasimpulsa">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>REPORTES</span>
         </a>
@@ -63,7 +63,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="/cacecobeirl/administrador/clientes/registros">
             <i class="fas fa-fw fa-address-card"></i>
             <span>REGISTROS</span>
         </a>
@@ -72,7 +72,7 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="/cacecobeirl/administrador/reporteventascacecob">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>REPORTES</span></a>
     </li>

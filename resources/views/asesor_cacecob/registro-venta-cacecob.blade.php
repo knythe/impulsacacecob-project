@@ -27,6 +27,20 @@
     <!-- Custom styles for this template -->
     <link href="{{asset ('css/template.css')}}" rel="stylesheet">
 
+    <style>
+        .hidden-during-pdf {
+            display: none !important;
+        }
+
+        .pdf-friendly-input {
+            background-color: white !important;
+            border: 1px solid #ccc !important;
+            box-shadow: none !important;
+            color: black !important;
+        }
+    </style>
+
+
     <!-- Custom styles for this page -->
     <link href="{{asset ('assets/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 
@@ -67,9 +81,9 @@
                         <img src="{{ asset('img/fondo-venta-cacecob.jpg') }}" alt="Logo Impulsa">
                     </div>
 
-                    <div class="form-container-impulsa">
+                    <div class="form-container-impulsa" id="form-container-impulsa">
 
-                    
+
                         <form action="{{ route('cacecobventas.store') }}" id="create_ventacacecob" method="post">
                             @csrf
                             <!-- DATOS DE INSCRIPCION -->
@@ -89,7 +103,7 @@
                                     <div class="form-group row">
                                         <div class="form-group col-sm-4">
                                             <label for="precio_evento">Costo del evento:</label>
-                                            <input type="text" class="form-control" id="precio_evento"  readonly>
+                                            <input type="text" class="form-control" id="precio_evento" readonly>
                                         </div>
                                         <div class="form-group col-sm-4">
                                             <label for="monto">Monto abondado:</label>
@@ -159,7 +173,7 @@
                                     <div class="form-group col-sm-4">
                                     </div>
                                     <div class="form-group col-sm-4">
-                                        <button type="submit" class="btn btn-primary-asesor-cacecob btn-ciclos w-100" id="save-button" title="Siguiente">Siguiente</button>
+                                        <button type="submit" class="btn btn-primary-asesor-cacecob btn-ciclos w-100 hide-on-pdf" id="save-button" title="Siguiente">Registrar venta</button>
                                     </div>
                                 </div>
                                 <!-- END DATOS DE INSCRIPCION-->

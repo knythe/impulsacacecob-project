@@ -73,7 +73,7 @@
                                                 </div>
                                                 <div class="form-group col-sm-2 mb-3 mb-sm-0" role="group" aria-label="Basic mixed styles example">
                                                     <hr>
-                                                    <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#editModalComprobante" title="Editar"><i class="fas fa-edit"></i></button>
+                                                    <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#editModalComprobante-{{$ultimo_comprobante->id}}" title="Editar"><i class="fas fa-edit"></i></button>
                                                 </div>
                                                 <div class="form-group col-sm-6">
                                                     <label for="tipo_pago">Tipo de pago:</label>
@@ -150,7 +150,7 @@
         <i class="fas fa-angle-up"></i>
     </a>
     <!--Edit Modal comprobante -->
-    <div class="modal fade" id="editModalComprobante}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editModalComprobante-{{$ultimo_comprobante->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal">
             <div class="modal-content">
                 <div class="modal-header text-center">
@@ -160,7 +160,70 @@
                 <!-- Modal Header and Body -->
                 <div class="modal-body">
 
+                    <form class="edit_comprobante" action="{{ route('comprobantes.update', $ultimo_comprobante->id) }}" method="post">
+                        @csrf
+                        @method('PUT')
+                        <!-- Form fields -->
+                        <div class="form-group">
+                            <div class="form-group row">
+                                <div class="form-group col-sm-12">
+                                    <label for="codigo_operacion">Codigo de operacion:</label>
+                                    <input type="text" class="form-control" id="codigo_operacion" name="codigo_operacion" placeholder="Ingrese codigo de operacion" oninput="soloLetrasNumerosCaracteres(this)" value="{{$ultimo_comprobante->codigo_operacion}}" required>
+                                    <label for="email" class="center-text-label">*es valido usar el mismo numero de comprobante*</label>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label for="numero_comprobante">Numero de comprobante:</label>
+                                    <input type="text" class="form-control" id="numero_comprobante" name="numero_comprobante" placeholder="Ingrese el numero de comprobante" oninput="soloLetrasNumerosCaracteres(this)" value="{{$ultimo_comprobante->numero_comprobante}}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="form-group col-sm-12">
+                                    <label for="tipo_pago">Tipo de pago:</label>
+                                    <select class="form-control" id="tipo_pago" name="tipo_pago" required>
+                                        @php
+                                        $tipos_pago = [
+                                        "YAPE" => "YAPE",
+                                        "PLIN" => "PLIN",
+                                        "Transferencia BCP" => "Transferencia BCP",
+                                        "Transferencia INTERBANK" => "Transferencia INTERBANK",
+                                        "Transferencia CCI CAJA PIURA" => "Transferencia CCI CAJA PIURA",
+                                        "Transferencia Banco de la Nacion" => "Transferencia Banco de la Nacion"
+                                        ];
+                                        @endphp
 
+                                        @foreach ($tipos_pago as $value => $label)
+                                        <option value="{{ $value }}" class="text-center" @if($ultimo_comprobante->tipo_pago == $value) selected @endif>{{ $label }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label for="fecha_pago">Fecha de pago:</label>
+                                    <input type="date" class="form-control" id="fecha_pago" name="fecha_pago" value="{{$ultimo_comprobante->fecha_pago}}" required>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label for="monto">Monto cancelado:</label>
+                                    <input type="text" class="form-control" id="monto" name="monto" placeholder="Ingrese monto cancelado" step="0.01" min="0" maxlength="3" value="{{$ultimo_comprobante->monto}}" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="form-group col-sm-12 mb-3 mb-sm-0">
+                                    <label for="observaciones">Observaciones:</label>
+                                    <textarea class="form-control" name="observaciones" id="observaciones" title="Solo alfanumericos" placeholder="Ingresa observaciones" oninput="soloLetrasNumerosCaracteres(this)" required>{{$ultimo_comprobante->observaciones}}</textarea>
+                                </div>
+
+                                <hr>
+                            </div>
+                            <div class="form-group row">
+
+                                <div class="form-group col-sm-6">
+                                    <button type="reset" class="btn btn-secondary btn-ciclos w-100">Cancelar</button>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <button type="submit" class="btn btn-primary-impulsa btn-ciclos w-100" title="Siguiente">Actualizar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
 
             </div>

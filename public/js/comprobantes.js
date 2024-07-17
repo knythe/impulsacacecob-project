@@ -125,6 +125,29 @@ $(document).ready(function() {
         });
     });
 
+    $('#create_nuevo_comprobante_cacecob').on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function(response) {
+               
+                    // Redirigir a la página de los registros hechos
+                    window.location.href = "/cacecobeirl/cliente/registrar/comprobante/detalle/pago"; 
+                
+            },
+            error: function(error) {
+                console.error(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'APODERADO EXISTENTE.',
+                });
+            }
+        });
+    });
+
     // Eliminar rol
     /* la siguiente script va directamente ubicada en el button (submit), es de tipo class
 
