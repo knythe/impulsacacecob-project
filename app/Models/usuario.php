@@ -3,16 +3,38 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class usuario extends Model
+class Usuario extends Authenticatable
 {
-    use HasFactory;
-    public function empleados() {
-        return $this->hasMany(empleado::class);
-    }
-    public function role() {
-        return $this->belongsTo(role::class);
-    }
+    use HasFactory, Notifiable;
+
+    protected $table = 'usuarios';
     protected $guarded = ['id'];
+
+    public function empleados()
+    {
+        return $this->hasMany(Empleado::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    // Método para obtener la contraseña
+    public function getAuthPassword()
+    {
+        return $this->contraseña;
+    }
+
+    // Si necesitas notificaciones
+    public function routeNotificationForMail($notification)
+    {
+        return $this->email;
+    }
 }
+
+
+

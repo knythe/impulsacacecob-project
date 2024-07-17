@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="d-flex justify-content-end">
-                                        <a href="{{route ('eventos.create')}}" class="btn btn-primary-cacecob">Agregar nuevo ciclo</a>
+                                        <a href="{{route ('eventos.create')}}" class="btn btn-primary-cacecob">Agregar nuevo evento</a>
                                     </div>
                                     <hr>
                                     <!-- Contenido de la segunda mitad -->
